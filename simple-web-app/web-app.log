@@ -1,0 +1,7 @@
+2021-10-11 17:04:06,907 INFO [http-nio-8080-exec-1] b.a.w.a.LoginController [LoginController.java:48] Login = admin, password = 123
+2021-10-11 17:24:23,133 INFO [http-nio-8080-exec-9] b.a.w.a.LoginController [LoginController.java:48] Пользователь ввел Login = admin, password = 123
+2021-10-11 17:24:23,142 INFO [http-nio-8080-exec-9] b.a.w.a.LoginController [LoginController.java:56] Пользователь .. admin... успешно авторизован 
+2021-10-11 17:24:42,720 INFO [http-nio-8080-exec-7] b.a.w.a.LoginController [CoachController.java:66] Новый пользователь логин -facr  password -123  успешно добавлен
+2021-10-11 17:25:09,320 INFO [http-nio-8080-exec-4] b.a.w.a.LoginController [CoachController.java:81] Обновленный пользователь id -11    успешно обновлен
+2021-10-11 17:25:17,429 INFO [http-nio-8080-exec-10] b.a.w.a.LoginController [CoachController.java:93] Удаленный пользователь id -5    успешно удален!
+2021-10-11 17:25:37,886 INFO [http-nio-8080-exec-2] b.a.w.a.LoginController [StudentController.java:54] Пользователь студент под id .. 6... успешно изменил свои оценки №1-5 №2-10 №3-9 №4-7 
