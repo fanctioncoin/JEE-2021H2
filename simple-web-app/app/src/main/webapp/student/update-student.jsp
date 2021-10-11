@@ -15,7 +15,7 @@
 <%@include file="/fragment/header.jsp" %>
 
 <h3 align="center">
-    Редактировать оценки ${param.name}
+    Редактировать  оценки ${param.name}
 </h3>
 <table border="2">
     <tr>

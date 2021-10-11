@@ -1,5 +1,5 @@
 package by.academy.web.model;
-
+//
 public class CredUser {
     private int id;
     private String login;

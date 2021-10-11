@@ -13,7 +13,7 @@
 <body>
 <%@include file="/fragment/header.jsp"%>
 <h1 align="center">
-    This is page for adding the coach!
+    This is page for  adding the coach!
 </h1>
 <form action = "user-coach" method="post">
     <input required type="text" name="login" placeholder="Логин">

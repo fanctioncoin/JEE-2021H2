@@ -13,7 +13,7 @@
 <body>
 <%@include file="/fragment/header.jsp"%>
 <br>
-Вы действительно хотите удалить пользователя ${param.id}?
+Вы действительно  хотите удалить пользователя ${param.id}?
 
 <form action="user-coach" method="post">
 <input type="hidden" name="id" value="${param.id}">

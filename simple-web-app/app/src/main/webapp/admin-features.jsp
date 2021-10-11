@@ -12,6 +12,6 @@
 </head>
 <body>
 <%@include file="/fragment/header.jsp"%>
-<h3 align="center"> Admin is the God!</h3>
+<h3 align="center"> Admin  is the God!</h3>
 </body>
 </html>

@@ -11,7 +11,6 @@ public class Dispatcher extends HttpServlet {
 
     protected void forward(String address, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }

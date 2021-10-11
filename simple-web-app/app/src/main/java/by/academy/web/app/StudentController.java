@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,7 +50,7 @@ public class StudentController extends Dispatcher {
         List<String> marks = Arrays.asList(marks1,marks2,marks3,marks4);
         student.setMarks(marks);
         mapsPerson= personRepoInMemories.updatePerson(student, mapsPerson);
-        logger.info("Пользователь студент под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
+        logger.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
         getServletContext().setAttribute("maps", mapsPerson);
         doGet(req,resp);
     }

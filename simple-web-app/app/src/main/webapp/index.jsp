@@ -24,7 +24,7 @@
     <table>
         <tr>
             <small>
-                <input type="submit" value="Войти в систему">
+                <input type="submit" value="Войти  в систему">
             </small>
 
     </table>

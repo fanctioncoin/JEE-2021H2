@@ -10,6 +10,7 @@ import java.io.IOException;
 @WebServlet(value = "/main")
 public class MainController extends Dispatcher {
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("list") != null || req.getParameter("salarylist") != null) {

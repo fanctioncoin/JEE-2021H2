@@ -17,7 +17,7 @@
     This is page  the  average salary coach!
 </h1>
 <h4>
-    Средняя зарплата тренеров:
+    Средняя зарплата  тренеров:
 
     ${salary}
 </h4>
