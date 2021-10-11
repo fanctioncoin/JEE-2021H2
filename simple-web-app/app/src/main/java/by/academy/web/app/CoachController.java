@@ -47,7 +47,6 @@ private final   CoachService coachService;
             getServletContext().getRequestDispatcher("/show-coaches").forward(req, resp);
         }
     }
-
     /**
      * Реализация для добавления новых тренеров с помощью админа.
      *

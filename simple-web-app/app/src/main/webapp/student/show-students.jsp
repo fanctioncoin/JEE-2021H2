@@ -14,7 +14,7 @@
 <body>
 <%@include file="/fragment/header.jsp" %>
 <h1 align="center">
-    This is page for Lists students!
+    This is page for  Lists students!
 </h1>
 <table border="2">
     <tr>

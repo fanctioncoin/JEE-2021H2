@@ -25,15 +25,7 @@
         <url-pattern>/login-user</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>SuccessRegistration</servlet-name>
-        <jsp-file>/success_registration.jsp</jsp-file>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>SuccessRegistration</servlet-name>
-        <url-pattern>/success_registration</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>HomePage</servlet-name>

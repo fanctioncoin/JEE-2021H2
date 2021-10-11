@@ -1,7 +1,5 @@
 package by.academy.web.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Coach extends Person{
     private int salary;
@@ -33,8 +31,4 @@ public class Coach extends Person{
                 '}';
     }
 
-    @Override
-    public String getInfo() {
-        return toString();
-    }
 }

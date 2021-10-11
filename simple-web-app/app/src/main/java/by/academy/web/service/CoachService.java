@@ -45,7 +45,7 @@ public class CoachService {
                 .collect(Collectors.toList());
         return average(salaries).setScale(2, RoundingMode.HALF_UP);
     }
-    // Так как все юзеры и студенты и учителя будут в одной мапе надо их фильтровать для вывода
+    // Так как все юзеры и студенты и учителя будут в одной мапе надо их  фильтровать для вывода
      public List<Coach> filterCoachForMap(Map<Integer, Person> mapsPerson ){
          List<Person> listPersons=personRepoInMemories.findAllMap(mapsPerson);
          return listPersons.stream()

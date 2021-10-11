@@ -1,7 +1,7 @@
 package by.academy.web.model;
 
-public class Admin extends Person  {
-
+public class Admin extends Person {
+    //
     public Admin() {
     }
 
@@ -9,8 +9,4 @@ public class Admin extends Person  {
         super(credUser, id, name, age);
     }
 
-    @Override
-    public String getInfo() {
-        return null;
-    }
 }

@@ -2,11 +2,12 @@ package by.academy.web.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Student extends Person  {
+//
+public class Student extends Person {
     private String group;
 
     private List<String> marks;
+
     {
         marks = new ArrayList<>();
     }
@@ -54,9 +55,5 @@ public class Student extends Person  {
 
                 ", marks=" + marks +
                 '}';
-    }
-    @Override
-    public String getInfo() {
-        return toString();
     }
 }

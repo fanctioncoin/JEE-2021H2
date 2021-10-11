@@ -2,7 +2,7 @@ package by.academy.web.model;
 
 import java.util.Objects;
 
-public abstract class Person implements PrintTable {
+public abstract class Person  {
     private CredUser credUser;
     private int id;
     private String name;
@@ -56,26 +56,6 @@ public abstract class Person implements PrintTable {
     public void setAge(int age) {
         this.age = age;
     }
-
-
-
-
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Person person = (Person) o;
-//        if (age != person.age) return false;
-//        return Objects.equals(name, person.name);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = name != null ? name.hashCode() : 0;
-//        result = 31 * result + age;
-//        return result;
-//    }
 
 
     @Override

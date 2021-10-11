@@ -9,7 +9,6 @@ public abstract class AbstractFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
-
     @Override
     public void destroy() {
 

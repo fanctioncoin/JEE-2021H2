@@ -13,7 +13,7 @@
 <body>
 <%@include file="/fragment/header.jsp"%>
     <h1 align="center">
-      This is  the HOME page!
+      This is   the HOME page!
     </h1>
      <p align="center">
          <strong>

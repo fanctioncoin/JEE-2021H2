@@ -15,7 +15,7 @@
 <%@include file="/fragment/header.jsp"%>
 <h3 align="center"> List coaches!</h3>
 <h4>
-    Средняя зарплата тренеров:
+    Средняя  зарплата тренеров:
 
 ${salary}
 </h4>
