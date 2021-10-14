@@ -14,7 +14,7 @@
 <body>
 <%@include file="/fragment/header.jsp" %>
 <h1 align="center">
-    This is page for  Lists students!
+    This is page for Lists students!
 </h1>
 <table border="2">
     <tr>
@@ -29,29 +29,29 @@
     </tr>
 
     <c:forEach items="${students}" var="student">
-    <tr>
-        <td>${student.getId()}</td>
-        <td>${student.getName()}</td>
-        <td>${student.getAge()}</td>
-        <td>${student.getGroup()}</td>
-        <td>${student.getMarks().get(0)}</td>
-        <td>${student.getMarks().get(1)}</td>
-        <td>${student.getMarks().get(2)}</td>
-        <td>${student.getMarks().get(3)}</td>
-        <td>
-            <form action = "update-student" method="post">
-                <input type="hidden" name="id" value="${student.getId()}">
-                <input type="hidden" name="name" value="${student.getName()}">
-                <input type="hidden" name="age" value="${student.getAge()}">
-                <input type="hidden" name="group" value="${student.getGroup()}">
-                <input type="hidden" name="marks1" value="${student.getMarks().get(0)}">
-                <input type="hidden" name="marks2" value="${student.getMarks().get(1)}">
-                <input type="hidden" name="marks3" value="${student.getMarks().get(2)}">
-                <input type="hidden" name="marks4" value="${student.getMarks().get(3)}">
-                <input type="submit" value="Изменить" style="float:left">
-            </form>
-        </td>
-    </tr>
+        <tr>
+            <td>${student.getId()}</td>
+            <td>${student.getName()}</td>
+            <td>${student.getAge()}</td>
+            <td>${student.getGroup()}</td>
+            <td>${student.getMarks().get(0)}</td>
+            <td>${student.getMarks().get(1)}</td>
+            <td>${student.getMarks().get(2)}</td>
+            <td>${student.getMarks().get(3)}</td>
+            <td>
+                <form action="update-student" method="post">
+                    <input type="hidden" name="id" value="${student.getId()}">
+                    <input type="hidden" name="name" value="${student.getName()}">
+                    <input type="hidden" name="age" value="${student.getAge()}">
+                    <input type="hidden" name="group" value="${student.getGroup()}">
+                    <input type="hidden" name="marks1" value="${student.getMarks().get(0)}">
+                    <input type="hidden" name="marks2" value="${student.getMarks().get(1)}">
+                    <input type="hidden" name="marks3" value="${student.getMarks().get(2)}">
+                    <input type="hidden" name="marks4" value="${student.getMarks().get(3)}">
+                    <input type="submit" value="Изменить" style="float:left">
+                </form>
+            </td>
+        </tr>
     </c:forEach>
 </table>
 </body>

@@ -12,23 +12,20 @@
 </head>
 <body>
 <br>
-<div align="center" >
-<h1>Вход в систему</h1>
-<form action="login" method="post">
-
-       Пользователь: <input type="text" name="login" size="10"><br>
-
-<p margin-top="5%">
-    Пароль: <input type="password" name="password" size="10"><br>
-</p>
-    <table>
-        <tr>
-            <small>
-                <input type="submit" value="Войти  в систему">
-            </small>
-
-    </table>
-</form>
+<div align="center">
+    <h1>Вход в систему</h1>
+    <form action="login" method="post">
+        Пользователь: <input type="text" name="login" size="10"><br>
+        <p margin-top="5%">
+            Пароль: <input type="password" name="password" size="10"><br>
+        </p>
+        <table>
+            <tr>
+                <small>
+                    <input type="submit" value="Войти  в систему">
+                </small>
+        </table>
+    </form>
 </div>
 <br>
 </body>

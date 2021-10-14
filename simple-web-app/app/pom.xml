@@ -72,7 +72,7 @@
                             <server>localtomcat</server>
                             <username>tomcat</username>
                             <password>tomcat</password>
-                            <url>http://localhost:8080/manager/text</url>
+                            <url>http://localhost:8081/manager/text</url>
                             <path>/${project.build.finalName}</path>
                             <update>true</update>
                         </configuration>

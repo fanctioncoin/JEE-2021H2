@@ -15,7 +15,7 @@
 <%@include file="/fragment/header.jsp" %>
 
 <h3 align="center">
-    Редактировать  оценки ${param.name}
+    Редактировать оценки ${param.name}
 </h3>
 <table border="2">
     <tr>
@@ -25,9 +25,7 @@
         <td>Topic-4</td>
     </tr>
     <tr>
-
         <form action="student" method="post">
-
             <input type="hidden" name="id" value="${param.id}">
             <input type="hidden" name="name" value="${param.name}">
             <input type="hidden" name="age" value="${param.age}">
@@ -36,8 +34,7 @@
             <td><input type="text" name="marks2" value="${param.marks2}" placeholder=${param.marks2}></td>
             <td><input type="text" name="marks3" value="${param.marks3}" placeholder=${param.marks3}></td>
             <td><input type="text" name="marks4" value="${param.marks4}" placeholder=${param.marks4}></td>
-            <td> <input type="submit" value="Сохранить"> </td>
-
+            <td><input type="submit" value="Сохранить"></td>
         </form>
     </tr>
 </table>

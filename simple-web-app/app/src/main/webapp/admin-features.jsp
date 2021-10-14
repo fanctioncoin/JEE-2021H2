@@ -11,7 +11,7 @@
     <title>Admin features</title>
 </head>
 <body>
-<%@include file="/fragment/header.jsp"%>
-<h3 align="center"> Admin  is the God!</h3>
+<%@include file="/fragment/header.jsp" %>
+<h3 align="center"> Admin is the God!</h3>
 </body>
 </html>
