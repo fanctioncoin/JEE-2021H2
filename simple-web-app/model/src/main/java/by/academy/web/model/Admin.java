@@ -1,6 +1,7 @@
 package by.academy.web.model;
 
 public class Admin extends Person {
+
     public Admin() {
     }
 

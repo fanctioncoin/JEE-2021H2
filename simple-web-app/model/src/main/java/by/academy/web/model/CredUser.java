@@ -1,5 +1,7 @@
 package by.academy.web.model;
-//
+
+import java.util.Objects;
+
 public class CredUser {
     private int id;
     private String login;
@@ -53,5 +55,18 @@ public class CredUser {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CredUser credUser = (CredUser) o;
+        return id == credUser.id && Objects.equals(login, credUser.login) && Objects.equals(password, credUser.password) && role == credUser.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, role);
     }
 }

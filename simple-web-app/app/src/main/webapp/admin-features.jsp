@@ -13,5 +13,11 @@
 <body>
 <%@include file="/fragment/header.jsp" %>
 <h3 align="center"> Admin is the God!</h3>
+<#list roles as role>
+<div>
+    <label>  <input type="checkbox" name="${role}"  ${role} </label>
+</div>
+</#list>
+
 </body>
 </html>

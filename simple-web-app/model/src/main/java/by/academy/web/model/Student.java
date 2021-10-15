@@ -2,7 +2,8 @@ package by.academy.web.model;
 
 import java.util.ArrayList;
 import java.util.List;
-//
+import java.util.Objects;
+
 public class Student extends Person {
     private String group;
 
@@ -55,5 +56,19 @@ public class Student extends Person {
 
                 ", marks=" + marks +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Student student = (Student) o;
+        return Objects.equals(group, student.group) && Objects.equals(marks, student.marks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), group, marks);
     }
 }

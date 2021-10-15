@@ -13,8 +13,5 @@ public class AdminController extends Dispatcher {
     {
         personRepoInMemories =new PersonRepoInMemories();
     }
-    @Override
-    public void init() throws ServletException {
-        super.init();
-    }
+
 }
