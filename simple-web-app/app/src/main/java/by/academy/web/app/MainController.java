@@ -21,7 +21,7 @@ public class MainController extends Dispatcher {
             this.forward("/admin-features", req, resp);
         } else if (req.getParameter("exit") != null) {
             HttpSession httpSession = req.getSession();
-            httpSession.removeAttribute("user");
+            httpSession.removeAttribute("login");
             this.forward("/index.jsp", req, resp);
         }
     }

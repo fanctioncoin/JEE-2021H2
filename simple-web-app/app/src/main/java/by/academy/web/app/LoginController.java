@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+
 
 
 @WebServlet(value = "/login")
@@ -25,11 +25,12 @@ public class LoginController extends Dispatcher {
 
     private final PersonRepoInMemories personRepoInMemories;
     private final LoginService loginService;
-    private Map<Integer, Person> maps = new HashMap<>();
+    private  Map<Integer, Person> maps;
 
     {
         personRepoInMemories = new PersonRepoInMemories();
         loginService = new LoginService();
+        maps = new HashMap<>();
     }
 
     @Override
@@ -43,8 +44,8 @@ public class LoginController extends Dispatcher {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String login = (String) req.getParameter("login");
-        String password = (String) req.getParameter("password");
+        String login = req.getParameter("login");
+        String password =req.getParameter("password");
         logger.info("Пользователь ввел Login = {}, password = {}", login, password);
         ServletContext stx1 = getServletContext();
         Map<Integer, Person> maps1 = (Map<Integer, Person>) stx1.getAttribute("maps");
