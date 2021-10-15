@@ -27,12 +27,12 @@
             </form>
 
         <tr>
-            <form action="main" method="get">
+            <form action="user-coach" method="get">
                 <input type="submit" name="list" value="List coaches">
             </form>
 
         <tr>
-            <form action="main" method="get">
+            <form action="user-coach" method="get">
                 <input type="submit" name="salarylist" value="List salary">
             </form>
         <tr>

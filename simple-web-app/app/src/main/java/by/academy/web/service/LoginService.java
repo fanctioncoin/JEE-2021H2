@@ -6,7 +6,6 @@ import by.academy.web.repos.PersonRepoInMemories;
 import java.util.List;
 import java.util.Map;
 
-
 public class LoginService {
 private final PersonRepoInMemories personRepoInMemories;
     {
@@ -26,4 +25,17 @@ private final PersonRepoInMemories personRepoInMemories;
         }
         return present;
     }
+     public Person getPerson(String login, String password, Map<Integer,Person> maps){
+         Person person;
+         boolean present =checkUser(login, password, maps);
+             if (present) {
+                 List<Person> personList = personRepoInMemories.findAllMap(maps);
+                 person = personList.stream()
+                         .filter(x -> x.getCredUser().getLogin().equals(login))
+                         .findFirst()
+                         .orElse(null);
+                 return (person);
+             }
+        return null;
+     }
 }

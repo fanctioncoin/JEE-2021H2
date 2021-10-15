@@ -1,4 +1,5 @@
-<%--
+<%@ page import="by.academy.web.model.Role" %>
+<%@ page import="by.academy.web.model.Person" %><%--
   Created by IntelliJ IDEA.
   User: Победитель
   Date: 08.10.2021
@@ -48,7 +49,14 @@
                     <input type="hidden" name="marks2" value="${student.getMarks().get(1)}">
                     <input type="hidden" name="marks3" value="${student.getMarks().get(2)}">
                     <input type="hidden" name="marks4" value="${student.getMarks().get(3)}">
+
+<%--                Пришлось чутка кода в jsp написать, чтобы у студентов не было записи "ИЗМЕНИТЬ"--%>
+<%--                 В фильтрах все четко прописал, чтобы не дай бог по URL кто не забрел!   --%>
+
+                    <%Person person = (Person) session.getAttribute("login");%>
+                    <% if (person.getCredUser().getRole().equals(Role.ADMIN) || person.getCredUser().getRole().equals(Role.COACH)) { %>
                     <input type="submit" value="Изменить" style="float:left">
+                    <%}%>
                 </form>
             </td>
         </tr>
