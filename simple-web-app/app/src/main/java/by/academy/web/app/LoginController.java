@@ -1,5 +1,6 @@
 package by.academy.web.app;
 
+import by.academy.web.dao.UserDao;
 import by.academy.web.model.Person;
 import by.academy.web.repos.PersonRepoInMemories;
 import by.academy.web.service.LoginService;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class LoginController extends Dispatcher {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
+    private UserDao userDao;
     private final PersonRepoInMemories personRepoInMemories;
     private final LoginService loginService;
     private  Map<Integer, Person> maps;
@@ -31,6 +32,7 @@ public class LoginController extends Dispatcher {
         personRepoInMemories = new PersonRepoInMemories();
         loginService = new LoginService();
         maps = new HashMap<>();
+        userDao =new UserDao();
     }
 
     @Override
@@ -59,5 +61,8 @@ public class LoginController extends Dispatcher {
             logger.info("Пользователь .. {}... не авторизован ", login);
             this.forward("/index.jsp", req, resp);
         }
+    }
+    private void getConnection(){
+        userDao.ConfigManager();
     }
 }
