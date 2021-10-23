@@ -34,7 +34,7 @@
             <td>${student.getId()}</td>
             <td>${student.getName()}</td>
             <td>${student.getAge()}</td>
-            <td>${student.getGroup()}</td>
+            <td>${student.getGroupName()}</td>
             <td>${student.getMarks().get(0)}</td>
             <td>${student.getMarks().get(1)}</td>
             <td>${student.getMarks().get(2)}</td>
@@ -44,7 +44,7 @@
                     <input type="hidden" name="id" value="${student.getId()}">
                     <input type="hidden" name="name" value="${student.getName()}">
                     <input type="hidden" name="age" value="${student.getAge()}">
-                    <input type="hidden" name="group" value="${student.getGroup()}">
+                    <input type="hidden" name="group" value="${student.getGroupName()}">
                     <input type="hidden" name="marks1" value="${student.getMarks().get(0)}">
                     <input type="hidden" name="marks2" value="${student.getMarks().get(1)}">
                     <input type="hidden" name="marks3" value="${student.getMarks().get(2)}">

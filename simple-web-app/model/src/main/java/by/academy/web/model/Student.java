@@ -1,11 +1,18 @@
 package by.academy.web.model;
 
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student extends Person {
-    private String group;
+    private String groupName;
 
     private List<String> marks;
 
@@ -13,62 +20,43 @@ public class Student extends Person {
         marks = new ArrayList<>();
     }
 
-    public Student() {
-    }
-
-    public Student(int id, String name, int age) {
-        super(id, name, age);
-    }
-
-    public Student(int id, String name, int age, String group, List<String> marks) {
-        super(id, name, age);
-        this.group = group;
-        this.marks = marks;
-    }
-
-    public Student(CredUser credUser, int id, String name, int age, String group, List<String> marks) {
-        super(credUser, id, name, age);
-        this.group = group;
-        this.marks = marks;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-
-    public List<String> getMarks() {
-        return marks;
-    }
-
-    public void setMarks(List<String> marks) {
+    public Student(int id, CredUser credUser, String name, int age, String groupName, List<String> marks) {
+        super(id, credUser, name, age);
+        this.groupName = groupName;
         this.marks = marks;
     }
 
     @Override
-    public String toString() {
-        return "Student{" +
-                "group='" + group + '\'' +
-
-                ", marks=" + marks +
-                '}';
+    public Student withId(Integer id) {
+        setId(id);
+        return this;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Student student = (Student) o;
-        return Objects.equals(group, student.group) && Objects.equals(marks, student.marks);
+    public Student withCredUser(CredUser credUser) {
+        setCredUser(credUser);
+        return this;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), group, marks);
+    public Student withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    @Override
+    public Student withAge(Integer age) {
+        setAge(age);
+        return this;
+    }
+
+    public Student withGroupName(String groupName){
+        setGroupName(groupName);
+        return this;
+    }
+
+    public Student withMarks(List<String> marks){
+        setMarks(marks);
+        return this;
     }
 }

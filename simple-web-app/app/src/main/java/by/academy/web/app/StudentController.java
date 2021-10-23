@@ -4,7 +4,10 @@ package by.academy.web.app;
 import by.academy.web.model.Person;
 import by.academy.web.model.Student;
 import by.academy.web.repos.PersonRepoInMemories;
+import by.academy.web.repos.PersonRepository;
+import by.academy.web.repos.RepositoryFactory;
 import by.academy.web.service.StudentService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+@Slf4j
 @WebServlet(value = "/student")
 public class StudentController extends Dispatcher {
-    private static final Logger logger = LoggerFactory.getLogger( LoginController.class);
+
+    private PersonRepository personRepository = RepositoryFactory.getEmployeeRepository();
 
    private final   StudentService studentService;
    private final PersonRepoInMemories personRepoInMemories;
@@ -33,7 +38,7 @@ public class StudentController extends Dispatcher {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext stx = getServletContext();
         mapsPerson = (Map<Integer, Person>) stx.getAttribute("maps");
-        List<Student> students = studentService.findAllStudents(mapsPerson);
+        List<Student> students = studentService.findAllStudents(personRepository.findAll());
         req.setAttribute("students",students);
         this.forward("/show-students", req, resp);
     }
@@ -50,7 +55,7 @@ public class StudentController extends Dispatcher {
         List<String> marks = Arrays.asList(marks1,marks2,marks3,marks4);
         student.setMarks(marks);
         mapsPerson= personRepoInMemories.updatePerson(student, mapsPerson);
-        logger.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
+        log.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
         getServletContext().setAttribute("maps", mapsPerson);
         doGet(req,resp);
     }

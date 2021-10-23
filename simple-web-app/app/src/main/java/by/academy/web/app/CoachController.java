@@ -5,7 +5,10 @@ import by.academy.web.model.CredUser;
 import by.academy.web.model.Person;
 import by.academy.web.model.Role;
 import by.academy.web.repos.PersonRepoInMemories;
+import by.academy.web.repos.PersonRepository;
+import by.academy.web.repos.RepositoryFactory;
 import by.academy.web.service.CoachService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,25 +21,23 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 //@WebServlet(value = "/user-coach")
+@Slf4j
 public class CoachController extends HttpServlet {
 
-    private static final Logger logger = LoggerFactory.getLogger( LoginController.class);
-private final   PersonRepoInMemories personRepoInMemories;
-private final   CoachService coachService;
-    Map<Integer, Person> mapsPerson;
-   {
-        personRepoInMemories =new PersonRepoInMemories();
+    private final   CoachService coachService;
+    private PersonRepository personRepository = RepositoryFactory.getEmployeeRepository();
+    {
         coachService =new CoachService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext stx = getServletContext();
-        mapsPerson = (Map<Integer, Person>) stx.getAttribute("maps");
-        List<Coach> coaches = coachService.filterCoachForMap(mapsPerson);
+
+        List<Coach> coaches = coachService.filterCoachForMap(personRepository.findAll());
         BigDecimal bigDecimal = coachService.averageSalary(coaches);
         req.setAttribute("salary", bigDecimal);
         req.setAttribute("listCoaches", coaches);
@@ -58,12 +59,9 @@ private final   CoachService coachService;
           String name = req.getParameter("name");
           int age = Integer.parseInt(req.getParameter("age"));
           int salary =Integer.parseInt(req.getParameter("salary"));
-             mapsPerson=(Map<Integer, Person>)getServletContext().getAttribute("maps");
-          int id =coachService.generateId(mapsPerson); // добавление Id отдадим на проверку и присвоение.
-        Coach coach = new Coach(new CredUser(id,login,password, Role.COACH),id,name,age,salary);
-             mapsPerson = personRepoInMemories.addPerson(coach,mapsPerson);
-             logger.info("Новый пользователь логин -{}  password -{}  успешно добавлен",login,password);
-        getServletContext().setAttribute("maps",mapsPerson);
+        Coach coach = new Coach(1,new CredUser(1,login,password, Role.COACH),name,age,salary);
+             personRepository.save(coach);
+             log.info("Новый пользователь логин -{}  password -{}  успешно добавлен",login,password);
         resp.sendRedirect(req.getContextPath()+"/user-coach");
 
     }
@@ -71,26 +69,27 @@ private final   CoachService coachService;
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-         mapsPerson = (Map<Integer, Person>) getServletContext().getAttribute("maps");
-        Coach coach = (Coach) personRepoInMemories.findById(id, mapsPerson);
-           coach.setName(req.getParameter("name"));
-           coach.setAge(Integer.parseInt(req.getParameter("age")));
-           coach.setSalary(Integer.parseInt(req.getParameter("salary")));
-         mapsPerson= personRepoInMemories.updatePerson(coach, mapsPerson);
-        logger.info("Обновленный пользователь id -{}    успешно обновлен",id);
-        getServletContext().setAttribute("maps", mapsPerson);
+        Optional<Person> person = personRepository.find(id);
+        Coach coach = (Coach) person.orElse(null);
+        if (coach!=null){
+            coach.setName(req.getParameter("name"));
+            coach.setAge(Integer.parseInt(req.getParameter("age")));
+            coach.setSalary(Integer.parseInt(req.getParameter("salary")));
+        }
+        personRepository.save(coach);
         resp.sendRedirect(req.getContextPath() + "/user-coach");
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        mapsPerson = (Map<Integer, Person>) getServletContext().getAttribute("maps");
-        Person person= personRepoInMemories.findById(id,mapsPerson);
-        mapsPerson =personRepoInMemories.deletePerson(person,mapsPerson);
-        getServletContext().setAttribute("maps", mapsPerson);
-        logger.info("Удаленный пользователь id -{}    успешно удален!",id);
-        resp.sendRedirect(req.getContextPath()+"/user-coach");
+        Optional<Person> person = personRepository.find(id);
+        if (!person.isEmpty() && person != null) {
+            personRepository.remove(person.orElse(null));
+            log.info("Удаленный пользователь id -{}    успешно удален!", id);
+        }
+
+        resp.sendRedirect(req.getContextPath() + "/user-coach");
     }
 }
 

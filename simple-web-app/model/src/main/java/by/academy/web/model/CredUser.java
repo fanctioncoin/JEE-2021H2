@@ -1,72 +1,68 @@
 package by.academy.web.model;
 
+import lombok.*;
+
 import java.util.Objects;
 
-public class CredUser {
-    private int id;
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CredUser extends Entity {
+
     private String login;
     private String password;
     private Role role;
 
     public CredUser(int id, String login, String password, Role role) {
-        this.id = id;
+        super(id);
         this.login = login;
         this.password = password;
         this.role = role;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     @Override
-    public String toString() {
-        return "CredUser{" +
-                "idUser=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
+    public CredUser withId(Integer id) {
+        setId(id);
+        return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CredUser credUser = (CredUser) o;
-        return id == credUser.id && Objects.equals(login, credUser.login) && Objects.equals(password, credUser.password) && role == credUser.role;
+    public CredUser withLogin(String login) {
+        setLogin(login);
+        return this;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, login, password, role);
+    public CredUser withPassword(String password) {
+        setPassword(password);
+        return this;
+    }
+
+    public CredUser withRole(Role role) {
+        setRole(role);
+        return this;
     }
 }
+
+//    @Override
+//    public String toString() {
+//        return "CredUser{" +
+//                "idUser=" + super.getId() +
+//                ", login='" + login + '\'' +
+//                ", password='" + password + '\'' +
+//                ", role=" + role +
+//                '}';
+//    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        CredUser credUser = (CredUser) o;
+//        return id == credUser.id && Objects.equals(login, credUser.login) && Objects.equals(password, credUser.password) && role == credUser.role;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, login, password, role);
+//    }
+//}

@@ -10,15 +10,17 @@ import java.io.IOException;
 @WebServlet(value = "/main")
 public class MainController extends Dispatcher {
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("list") != null || req.getParameter("salarylist") != null) {
             this.forward("/user-coach", req, resp);
+
         } else if (req.getParameter("studentslist") != null) {
             this.forward("/student", req, resp);
+
         } else if (req.getParameter("adminFeatures") != null) {
             this.forward("/admin-features", req, resp);
+
         } else if (req.getParameter("exit") != null) {
             HttpSession httpSession = req.getSession();
             httpSession.removeAttribute("login");

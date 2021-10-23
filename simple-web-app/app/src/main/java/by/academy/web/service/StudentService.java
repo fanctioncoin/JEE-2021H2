@@ -16,8 +16,8 @@ public class StudentService {
         personRepoInMemories =new PersonRepoInMemories();
     }
 
-    public List<Student> findAllStudents(Map<Integer, Person> mapsPerson) {
-        List<Person> personList = personRepoInMemories.findAllMap(mapsPerson);
+    public List<Student> findAllStudents(List<Person> personList) {
+//        List<Person> personList = personRepoInMemories.findAllMap(mapsPerson);
         return personList.stream()
                 .filter(element->element instanceof Student)
                 .map(element->(Student)element)
