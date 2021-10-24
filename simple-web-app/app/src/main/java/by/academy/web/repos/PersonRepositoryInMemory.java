@@ -60,12 +60,16 @@ public class PersonRepositoryInMemory implements PersonRepository {
             CredUser credUser = person.getCredUser();
             credUser.withId(id);
         }
-//        if (id == null && id ==1) {
-//            id = generateId();
-//            person.setId(id);
-//        }
         map.put(id, person);
         return person;
+    }
+
+    @Override
+    public Person updatePerson(Person person) {
+        Integer id = person.getId();
+        map.put(id, person);
+        return person;
+
     }
 
     private int generateId() {

@@ -16,7 +16,9 @@ public interface PersonRepository {
     Optional<Person> find(int id);
 
     Person save(Person person);
-    
+
+    Person updatePerson(Person person);
+
     Optional<Person> remove(Person person);
 
 }

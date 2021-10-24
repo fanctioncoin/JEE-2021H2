@@ -6,8 +6,6 @@ import by.academy.web.repos.RepositoryFactory;
 import by.academy.web.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +24,6 @@ public class LoginController extends Dispatcher {
 
     {
         loginService = new LoginService();
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        ServletContext stx = getServletContext();
-        stx.setAttribute("maps",personRepository.findAllMap());
     }
 
     @Override

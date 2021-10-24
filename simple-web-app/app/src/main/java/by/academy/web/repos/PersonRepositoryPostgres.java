@@ -48,6 +48,11 @@ public class PersonRepositoryPostgres implements PersonRepository {
     }
 
     @Override
+    public Person updatePerson(Person person) {
+        return null;
+    }
+
+    @Override
     public Optional<Person> remove(Person person) {
         return Optional.empty();
     }

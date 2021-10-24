@@ -24,20 +24,15 @@ import java.util.*;
 public class StudentController extends Dispatcher {
 
     private PersonRepository personRepository = RepositoryFactory.getEmployeeRepository();
-
    private final   StudentService studentService;
-   private final PersonRepoInMemories personRepoInMemories;
-    Map<Integer, Person> mapsPerson;
+
     {
         studentService =new StudentService();
-        personRepoInMemories =new PersonRepoInMemories();
     }
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext stx = getServletContext();
-        mapsPerson = (Map<Integer, Person>) stx.getAttribute("maps");
         List<Student> students = studentService.findAllStudents(personRepository.findAll());
         req.setAttribute("students",students);
         this.forward("/show-students", req, resp);
@@ -46,17 +41,19 @@ public class StudentController extends Dispatcher {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        mapsPerson = (Map<Integer, Person>) getServletContext().getAttribute("maps");
-        Student student =(Student) personRepoInMemories.findById(id, mapsPerson);
-        String marks1= req.getParameter("marks1");
-        String marks2= req.getParameter("marks2");
-        String marks3= req.getParameter("marks3");
-        String marks4= req.getParameter("marks4");
-        List<String> marks = Arrays.asList(marks1,marks2,marks3,marks4);
-        student.setMarks(marks);
-        mapsPerson= personRepoInMemories.updatePerson(student, mapsPerson);
-        log.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
-        getServletContext().setAttribute("maps", mapsPerson);
+        Optional<Person> person =personRepository.find(id);
+        Student student =(Student)person.orElse(null);
+         if(student!=null){
+             String marks1= req.getParameter("marks1");
+             String marks2= req.getParameter("marks2");
+             String marks3= req.getParameter("marks3");
+             String marks4= req.getParameter("marks4");
+             List<String> marks = Arrays.asList(marks1,marks2,marks3,marks4);
+             student.setMarks(marks);
+            // personRepository.save(student);
+             personRepository.updatePerson(student);
+             log.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
+         }
         doGet(req,resp);
     }
 }
