@@ -53,10 +53,12 @@
 <%--                Пришлось чутка кода в jsp написать, чтобы у студентов не было записи "ИЗМЕНИТЬ"--%>
 <%--                 В фильтрах все четко прописал, чтобы не дай бог по URL кто не забрел!   --%>
 
-                    <%Person person = (Person) session.getAttribute("login");%>
-                    <% if (person.getCredUser().getRole().equals(Role.ADMIN) || person.getCredUser().getRole().equals(Role.COACH)) { %>
+<%--                    <%Person person = (Person) session.getAttribute("login");%>--%>
+<%--                    <% if (person.getCredUser().getRole().equals(Role.ADMIN) || person.getCredUser().getRole().equals(Role.COACH)--%>
+<%--                            || person.getCredUser().getRoles().equals("ADMIN")--%>
+<%--                            || person.getCredUser().getRoles().equals("COACH")) { %>--%>
                     <input type="submit" value="Изменить" style="float:left">
-                    <%}%>
+<%--                    <%}%>--%>
                 </form>
             </td>
         </tr>

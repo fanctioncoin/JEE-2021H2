@@ -3,15 +3,11 @@ package by.academy.web.app;
 
 import by.academy.web.model.Person;
 import by.academy.web.model.Student;
-import by.academy.web.repos.PersonRepoInMemories;
 import by.academy.web.repos.PersonRepository;
 import by.academy.web.repos.RepositoryFactory;
 import by.academy.web.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +46,6 @@ public class StudentController extends Dispatcher {
              String marks4= req.getParameter("marks4");
              List<String> marks = Arrays.asList(marks1,marks2,marks3,marks4);
              student.setMarks(marks);
-            // personRepository.save(student);
              personRepository.updatePerson(student);
              log.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ",id,marks1,marks2,marks3,marks4);
          }

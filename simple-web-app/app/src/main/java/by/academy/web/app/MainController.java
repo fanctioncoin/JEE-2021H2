@@ -19,7 +19,7 @@ public class MainController extends Dispatcher {
             this.forward("/student", req, resp);
 
         } else if (req.getParameter("adminFeatures") != null) {
-            this.forward("/admin-features", req, resp);
+            this.forward("/admin", req, resp);
 
         } else if (req.getParameter("exit") != null) {
             HttpSession httpSession = req.getSession();

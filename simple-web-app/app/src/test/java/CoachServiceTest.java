@@ -1,5 +1,4 @@
 import by.academy.web.model.*;
-import by.academy.web.repos.PersonRepoInMemories;
 import by.academy.web.service.CoachService;
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
@@ -11,17 +10,17 @@ import java.util.*;
 
 public class CoachServiceTest {
 
-    private PersonRepoInMemories personRepoInMemories;
-    private CoachService coachService;
-    private Map<Integer, Person> personMap;
-    private List<Coach> actualCoaches;
-
-    {
-        coachService = new CoachService();
-        personMap = new HashMap<>();
-        personRepoInMemories = new PersonRepoInMemories();
-        actualCoaches = new ArrayList<>();
-    }
+//    private PersonRepoInMemories personRepoInMemories;
+//    private CoachService coachService;
+//    private Map<Integer, Person> personMap;
+//    private List<Coach> actualCoaches;
+//
+//    {
+//        coachService = new CoachService();
+//        personMap = new HashMap<>();
+//        personRepoInMemories = new PersonRepoInMemories();
+//        actualCoaches = new ArrayList<>();
+//    }
 
 //    @Before
 //    public void setUp() {

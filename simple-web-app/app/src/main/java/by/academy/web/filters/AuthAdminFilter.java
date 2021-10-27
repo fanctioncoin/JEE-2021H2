@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Locale;
 
 
 @WebFilter(urlPatterns = {"/user-coach/*","/admin-features/*","/add-coach","/update-coach","/delete-coach"})
@@ -22,10 +23,19 @@ public class AuthAdminFilter extends AbstraсtFilter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         HttpSession session = req.getSession();
         Person person = (Person) session.getAttribute("login");
-        if (person.getCredUser().getRole().equals(Role.ADMIN)) {
-            filterChain.doFilter(req, resp);
-        } else {
-            resp.sendRedirect(req.getContextPath() + "/home.jsp");
+        if (person.getCredUser().getRole() != null) {
+            if (person.getCredUser().getRole().equals(Role.ADMIN)) {
+                filterChain.doFilter(req, resp);
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/home.jsp");
+            }
+        } else if (person.getCredUser().getRole() == null) {
+            if (person.getCredUser().getRoles().toUpperCase(Locale.ROOT).equals("ADMIN")) {
+                filterChain.doFilter(req, resp);
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/home.jsp");
+            }
         }
     }
 }
+

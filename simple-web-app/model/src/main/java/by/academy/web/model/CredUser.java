@@ -14,6 +14,7 @@ public class CredUser extends Entity {
     private String login;
     private String password;
     private Role role;
+    private String roles;
 
     public CredUser(int id, String login, String password, Role role) {
         super(id);
@@ -21,6 +22,14 @@ public class CredUser extends Entity {
         this.password = password;
         this.role = role;
     }
+
+    public CredUser(int id, String login, String password, String roles) {
+        super(id);
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
+    }
+
     @Override
     public CredUser withId(Integer id) {
         setId(id);
@@ -41,6 +50,12 @@ public class CredUser extends Entity {
         setRole(role);
         return this;
     }
+    public CredUser withRoles(String roles){
+        setRoles(roles);
+        return this;
+    }
+
+
 }
 
 //    @Override

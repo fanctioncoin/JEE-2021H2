@@ -2,7 +2,6 @@ package by.academy.web.service;
 
 import by.academy.web.model.Coach;
 import by.academy.web.model.Person;
-import by.academy.web.repos.PersonRepoInMemories;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,10 +10,6 @@ import java.util.stream.Collectors;
 
 public class CoachService {
 
-    private final PersonRepoInMemories personRepoInMemories;
-    {
-        personRepoInMemories= new PersonRepoInMemories();
-    }
 
     /**
      * Для правильного подбора Id для Юзера, будем находить последний выданный
@@ -47,18 +42,10 @@ public class CoachService {
     }
     // Так как все юзеры и студенты и учителя будут в одной мапе надо их  фильтровать для вывода
      public List<Coach> filterCoachForMap(List<Person> personList ){
-//         List<Person> listPersons=personRepoInMemories.findAllMap(mapsPerson);
          return personList.stream()
                  .filter(element->element instanceof Coach)
                  .map(element->(Coach)element)
                  .collect(Collectors.toList());
      }
 
-//    public Coach filterCoach(Optional<Person> person){
-////         List<Person> listPersons=personRepoInMemories.findAllMap(mapsPerson);
-//        return personList.stream()
-//                .filter(element->element instanceof Coach)
-//                .map(element->(Coach)element)
-//                .collect(Collectors.toList());
-//    }
 }

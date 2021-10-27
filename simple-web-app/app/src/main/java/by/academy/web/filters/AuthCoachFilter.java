@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Locale;
 
 @WebFilter(urlPatterns = {"/update-student/*"})
 public class AuthCoachFilter extends AbstraсtFilter {
@@ -21,10 +22,18 @@ public class AuthCoachFilter extends AbstraсtFilter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         HttpSession session = req.getSession();
         Person person = (Person) session.getAttribute("login");
-        if (person.getCredUser().getRole().equals(Role.ADMIN) || person.getCredUser().getRole().equals(Role.COACH)) {
-            filterChain.doFilter(req, resp);
-        } else {
-            resp.sendRedirect(req.getContextPath() + "/student");
+        if (person.getCredUser().getRole() != null) {
+            if (person.getCredUser().getRole().equals(Role.ADMIN) || person.getCredUser().getRole().equals(Role.COACH) ) {
+                filterChain.doFilter(req, resp);
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/student");
+            }
+        } else if (person.getCredUser().getRole() == null) {
+            if (person.getCredUser().getRoles().toUpperCase(Locale.ROOT).equals("ADMIN") || person.getCredUser().getRoles().toUpperCase(Locale.ROOT).equals("COACH")) {
+                filterChain.doFilter(req, resp);
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/student");
+            }
         }
     }
 }
