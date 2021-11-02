@@ -17,11 +17,5 @@ public class Dispatcher extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }
-    protected <T> T toPerson(Class<T> clazz, HttpServletRequest req) throws IOException {
-        String body = req.getReader().lines().collect(Collectors.joining());
-        ObjectMapper mapper = new ObjectMapper();
-        T person = mapper.readValue(body, clazz);
-        return person;
-    }
 }
 

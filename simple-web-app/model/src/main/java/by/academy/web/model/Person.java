@@ -8,7 +8,6 @@ import java.util.Objects;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public abstract class Person extends Entity  {
 
@@ -16,12 +15,19 @@ public abstract class Person extends Entity  {
     private String name;
     private int age;
 
-    public Person(int id, CredUser credUser, String name, int age) {
+    public Person(Integer id, CredUser credUser, String name, int age) {
         super(id);
         this.credUser = credUser;
         this.name = name;
         this.age = age;
     }
+
+    public Person(CredUser credUser, String name, int age) {
+        this.credUser = credUser;
+        this.name = name;
+        this.age = age;
+    }
+
 
     @Override
     public Person withId(Integer id) {

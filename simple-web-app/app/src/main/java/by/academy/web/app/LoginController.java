@@ -1,8 +1,8 @@
 package by.academy.web.app;
 
+
 import by.academy.web.model.Person;
-import by.academy.web.repos.PersonRepository;
-import by.academy.web.repos.RepositoryFactory;
+import by.academy.web.repos.*;
 import by.academy.web.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 @WebServlet(value = "/login")
 public class LoginController extends Dispatcher {
 
-    private PersonRepository personRepository = RepositoryFactory.getEmployeeRepository();
+    private final ARepository aRepository =RepositoryFactory.getEmployeeRepository(null);
     private final LoginService loginService;
 
     {
@@ -31,7 +31,8 @@ public class LoginController extends Dispatcher {
         String login = req.getParameter("login");
         String password =req.getParameter("password");
         log.info("Пользователь ввел Login = {}, password = {}", login, password);
-        Person person = loginService.getPerson(login, password, personRepository.findAll());
+        Person person = loginService.getPerson(login, password, aRepository.findAll());
+
         if (person != null) {
             HttpSession session = req.getSession();
             session.setAttribute("login", person);

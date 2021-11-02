@@ -20,7 +20,7 @@ public class Student extends Person {
         marks = new ArrayList<>();
     }
 
-    public Student(int id, CredUser credUser, String name, int age, String groupName, List<String> marks) {
+    public Student(Integer id, CredUser credUser, String name, int age, String groupName, List<String> marks) {
         super(id, credUser, name, age);
         this.groupName = groupName;
         this.marks = marks;

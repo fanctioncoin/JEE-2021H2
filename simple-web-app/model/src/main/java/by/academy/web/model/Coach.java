@@ -13,8 +13,13 @@ import java.util.Objects;
 public class Coach extends Person{
     private int salary;
 
-    public Coach(int id, CredUser credUser, String name, int age, int salary) {
+    public Coach(Integer id, CredUser credUser, String name, int age, int salary) {
         super(id, credUser, name, age);
+        this.salary = salary;
+    }
+
+    public Coach(CredUser credUser, String name, int age, int salary) {
+        super(credUser, name, age);
         this.salary = salary;
     }
 

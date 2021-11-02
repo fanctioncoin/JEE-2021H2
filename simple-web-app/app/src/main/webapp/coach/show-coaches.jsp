@@ -35,7 +35,7 @@ ${salary}
             <td>${coach.getId()}</td>
             <td>${coach.getCredUser().getLogin()} </td>
             <td>${coach.getCredUser().getPassword()} </td>
-            <td>${coach.getCredUser().getRole()} </td>
+            <td>${coach.getCredUser().getRoles()} </td>
             <td>${coach.getName()}</td>
             <td>${coach.getAge()}</td>
             <td>${coach.getSalary()}</td>

@@ -1,5 +1,8 @@
 package by.academy.web.repos;
 
+import by.academy.web.model.Coach;
+import by.academy.web.model.Person;
+import by.academy.web.model.Student;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -31,9 +34,18 @@ public class RepositoryFactory {
         //factory empty private
     }
 
-    public static PersonRepository getEmployeeRepository() {
+    public static  ARepository getEmployeeRepository(Person person) {
         switch (TYPE) {
             case POSTGRES:
+
+                if(person instanceof Coach){
+                    return CoachRepository.getInstance(datasource);
+                }
+
+                else if(person instanceof Student){
+                    return StudentRepository.getInstance(datasource);
+                }
+
                 return PersonRepositoryPostgres.getInstance(datasource);
             case MEMORY:
             default:

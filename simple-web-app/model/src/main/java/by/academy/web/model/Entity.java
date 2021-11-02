@@ -11,7 +11,7 @@ import javax.swing.*;
 @NoArgsConstructor
 public abstract class Entity {
 
-    private int id;
+    private Integer id;
 
     public Entity withId(Integer id) {
         setId(id);

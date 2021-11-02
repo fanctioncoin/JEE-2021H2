@@ -30,15 +30,6 @@ public class PersonRepositoryInMemory implements PersonRepository {
     }
 
     @Override
-    public Map<Integer,Person>  findAllMap(){
-        if (map.isEmpty()) {
-            return new ConcurrentHashMap<>();
-        }
-        return map;
-    }
-
-
-    @Override
     public List<Person> findAll() {
         if (map.isEmpty()) {
             return new ArrayList<>();
@@ -50,6 +41,8 @@ public class PersonRepositoryInMemory implements PersonRepository {
     public Optional<Person> find(int id) {
         return Optional.ofNullable(map.get(id));
     }
+
+
 
     @Override
     public Person save(Person person) {
@@ -64,7 +57,6 @@ public class PersonRepositoryInMemory implements PersonRepository {
         return person;
     }
 
-    @Override
     public Person updatePerson(Person person) {
         Integer id = person.getId();
         map.put(id, person);
