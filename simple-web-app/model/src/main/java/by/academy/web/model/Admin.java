@@ -3,8 +3,10 @@ package by.academy.web.model;
 
 import lombok.AllArgsConstructor;
 
+import javax.persistence.Entity;
 
 
+@Entity
 public class Admin extends Person {
 
     public Admin() {
@@ -13,6 +15,7 @@ public class Admin extends Person {
     public Admin(Integer id, CredUser credUser, String name, int age) {
         super(id, credUser, name, age);
     }
+
     @Override
     public Admin withId(Integer id) {
         setId(id);

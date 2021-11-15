@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Победитель
   Date: 11.10.2021
@@ -19,17 +20,17 @@
 </h3>
 <table border="2">
     <tr>
-        <td>Topic-1</td>
-        <td>Topic-2</td>
-        <td>Topic-3</td>
-        <td>Topic-4</td>
+        <% List<String> disciplines = (List<String>) session.getAttribute("disciplines");%>
+        <%for(String s: disciplines) { %>
+        <td><%=s%></td>
+        <%} %>
     </tr>
     <tr>
         <form action="student" method="post">
             <input type="hidden" name="id" value="${param.id}">
             <input type="hidden" name="name" value="${param.name}">
             <input type="hidden" name="age" value="${param.age}">
-            <input type="hidden" name="group" value="${param.group}">
+            <input type="hidden" name="name_band" value="${param.group}">
             <td><input type="text" name="marks1" value="${param.marks1}" placeholder=${param.marks1}></td>
             <td><input type="text" name="marks2" value="${param.marks2}" placeholder=${param.marks2}></td>
             <td><input type="text" name="marks3" value="${param.marks3}" placeholder=${param.marks3}></td>

@@ -2,39 +2,36 @@ package by.academy.web.model;
 
 import lombok.*;
 
-import java.util.Objects;
-
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@javax.persistence.Entity( name = "usr")
 public class CredUser extends Entity {
 
     private String login;
     private String password;
-    private Role role;
-    private String roles;
 
-    public CredUser(Integer id, String login, String password, Role role) {
-        super(id);
-        this.login = login;
-        this.password = password;
-        this.role = role;
-    }
+//    @Transient
+//    private Role role1;
 
-    public CredUser(Integer id, String login, String password, String roles) {
-        super(id);
-        this.login = login;
-        this.password = password;
-        this.roles = roles;
-    }
+    private String role;
 
-    public CredUser(String login, String password, String roles) {
-        this.login = login;
-        this.password = password;
-        this.roles = roles;
-    }
+//    public CredUser(Integer id, String login, String password, Role role1) {
+//        super(id);
+//        this.login = login;
+//        this.password = password;
+//        this.role1 = role1;
+//    }
+
+
+
+//    public CredUser(String login, String password, String role) {
+//        this.login = login;
+//        this.password = password;
+//        this.role = role;
+//    }
 
     @Override
     public CredUser withId(Integer id) {
@@ -52,12 +49,8 @@ public class CredUser extends Entity {
         return this;
     }
 
-    public CredUser withRole(Role role) {
+    public CredUser withRole(String role){
         setRole(role);
-        return this;
-    }
-    public CredUser withRoles(String roles){
-        setRoles(roles);
         return this;
     }
 }

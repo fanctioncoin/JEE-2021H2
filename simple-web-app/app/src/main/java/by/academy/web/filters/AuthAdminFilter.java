@@ -23,14 +23,9 @@ public class AuthAdminFilter extends AbstraсtFilter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         HttpSession session = req.getSession();
         Person person = (Person) session.getAttribute("login");
-        if (person.getCredUser().getRole() != null) {
-            if (person.getCredUser().getRole().equals(Role.ADMIN)) {
-                filterChain.doFilter(req, resp);
-            } else {
-                resp.sendRedirect(req.getContextPath() + "/home.jsp");
-            }
-        } else if (person.getCredUser().getRole() == null) {
-            if (person.getCredUser().getRoles().toUpperCase(Locale.ROOT).equals("ADMIN")) {
+
+          if (person.getCredUser().getRole() !=null) {
+            if (person.getCredUser().getRole().toUpperCase(Locale.ROOT).equals("ADMIN")) {
                 filterChain.doFilter(req, resp);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/home.jsp");

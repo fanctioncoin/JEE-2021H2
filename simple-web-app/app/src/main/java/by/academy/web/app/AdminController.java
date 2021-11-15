@@ -23,7 +23,7 @@ public class AdminController extends Dispatcher {
     private final StudentService studentService =new StudentService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        List<Coach> coaches = coachService.filterCoachForMap(personRepository.findAll());
 //        req.setAttribute("listCoaches", coaches);
 //        List<Student> students = studentService.findAllStudents(personRepository.findAll());
@@ -32,7 +32,7 @@ public class AdminController extends Dispatcher {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
     }
 }

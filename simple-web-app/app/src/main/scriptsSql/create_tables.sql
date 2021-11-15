@@ -1,7 +1,8 @@
-drop table usr;
-drop table adm;
-drop table coach ;
-drop table student;
+drop table if exists adm;
+drop table if exists student;
+drop table if exists band;
+drop table if exists coach;
+drop table if exists usr;
 
 CREATE TABLE usr
 (
@@ -12,17 +13,11 @@ CREATE TABLE usr
     primary key (id)
 );
 
-
-CREATE TABLE student
+CREATE TABLE adm
 (
-    id serial not null,
+    id     serial not null,
     name   varchar(255) not null,
     age     int,
-    name_group  varchar(255),
-    topic1 varchar(255),
-    topic2 varchar(255),
-    topic3 varchar(255),
-    topic4 varchar(255),
     id_usr int not null,
     primary key (id)
 );
@@ -36,17 +31,42 @@ CREATE TABLE coach
     id_usr int not null,
     primary key (id)
 );
-CREATE TABLE adm
+
+CREATE TABLE band
 (
-    id     serial not null,
+    id serial not null,
+    name   varchar(255) not null,
+    id_coach  int not null,
+    disciplines1  varchar(255),
+    disciplines2  varchar(255),
+    disciplines3  varchar(255),
+    disciplines4  varchar(255),
+    disciplines5  varchar(255),
+    disciplines7  varchar(255),
+    disciplines8  varchar(255),
+    disciplines9  varchar(255),
+    primary key (id)
+);
+
+CREATE TABLE student
+(
+    id serial not null,
     name   varchar(255) not null,
     age     int,
+    id_band int not null,
+    marks1 varchar(255),
+    marks2 varchar(255),
+    marks3 varchar(255),
+    marks4 varchar(255),
+    marks5 varchar(255),
+    marks6 varchar(255),
+    marks7 varchar(255),
+    marks8 varchar(255),
+    marks9 varchar(255),
+    marks10 varchar(255),
     id_usr int not null,
     primary key (id)
 );
-alter table student
-    add constraint student_user_fk
-        foreign key (id_usr) references usr(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table coach
     add constraint coach_user_fk
@@ -56,9 +76,18 @@ alter table adm
     add constraint adm_user_fk
         foreign key (id_usr) references usr(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table user_role
-    add constraint user_role_user_fk
-        foreign key (id_usr) references usr(id);
+alter table student
+    add constraint student_user_fk
+        foreign key (id_usr) references usr(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table student
+    add constraint student_band_fk
+        foreign key (id_band) references band(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+alter table band
+    add constraint band_coach_fk
+        foreign key (id_coach) references coach(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 INSERT INTO usr (login , "password", role )
 values ('admin','123','ADMIN'),
@@ -79,12 +108,16 @@ values ('Ivan Petrov',30,1000,2),
        ('Marya Ivanova',30,554,5),
        ('Olga Yarovaya',40,1100,6);
 
+INSERT INTO band (name , id_coach, disciplines1, disciplines2, disciplines3, disciplines4)
+values ('GLS_01_02',1,'Logic','Biology','History','Algebra'),
+       ('GLK_03_02',2,'Mechanic','Management','Control','Algebra');
 
-INSERT INTO student ("name" , age , name_group, topic1, topic2, topic3, topic4, id_usr)
-values ('Ivan Zuzkin',20,'GR-1','5','-','9','10',7),
-       ('Natalia Efimova',22,'GR-1','-','-','9','7',8),
-       ('Vadim Lukyanov',20,'GR-2','5','-','5','7',9),
-       ('Sergey Lukyanov',21,'GR-2','5','-','5','7',10);
+
+INSERT INTO student ("name" , age ,id_band ,marks1, marks2, marks3, marks4, id_usr)
+values ('Ivan Zuzkin',20,1,'5','-','9','10',30),
+       ('Natalia Efimova',19,1,'-','-','9','7',31),
+       ('Vadim Lukyanov',22,2,'5','-','5','7',32),
+       ('Sergey Lukyanov',21,2,'5','-','5','7',33);
 
 INSERT INTO adm ("name" , age , id_usr )
 values ('Slava Belov',35,1);

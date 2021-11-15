@@ -2,6 +2,8 @@ package by.academy.web.service;
 
 import by.academy.web.model.Coach;
 import by.academy.web.model.Person;
+import by.academy.web.repos.Repository;
+import by.academy.web.repos.RepositoryFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -9,6 +11,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoachService {
+
+    private final Repository repository = RepositoryFactory.getEmployeeRepository(new Coach());
 
 
     /**
@@ -40,12 +44,9 @@ public class CoachService {
                 .collect(Collectors.toList());
         return average(salaries).setScale(2, RoundingMode.HALF_UP);
     }
-    // Так как все юзеры и студенты и учителя будут в одной мапе надо их  фильтровать для вывода
-     public List<Coach> filterCoachForMap(List<Person> personList ){
-         return personList.stream()
-                 .filter(element->element instanceof Coach)
-                 .map(element->(Coach)element)
-                 .collect(Collectors.toList());
+
+    public List<Coach> filterCoachForMap(){
+         return repository.findAll();
      }
 
 }

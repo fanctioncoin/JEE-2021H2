@@ -3,7 +3,7 @@ package by.academy.web.app;
 import by.academy.web.model.Coach;
 import by.academy.web.model.CredUser;
 import by.academy.web.model.Person;
-import by.academy.web.repos.ARepository;
+import by.academy.web.repos.Repository;
 import by.academy.web.repos.RepositoryFactory;
 import by.academy.web.service.CoachService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +23,15 @@ import java.util.Optional;
 public class CoachController extends HttpServlet {
 
     private final   CoachService coachService;
-    private final ARepository aRepository =RepositoryFactory.getEmployeeRepository(new Coach());
+    private final Repository aRepository =RepositoryFactory.getEmployeeRepository(new Coach());
     {
         coachService =new CoachService();
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Coach> coaches = coachService.filterCoachForMap(aRepository.findAll());
+        List<Coach> coaches = coachService.filterCoachForMap();
 
         BigDecimal bigDecimal = coachService.averageSalary(coaches);
         req.setAttribute("salary", bigDecimal);
@@ -48,7 +48,7 @@ public class CoachController extends HttpServlet {
      *
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
           String login = req.getParameter("login");
           String password =req.getParameter("password");
           String name = req.getParameter("name");
@@ -61,7 +61,7 @@ public class CoachController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Optional<Person> person = aRepository.find(id);
         Coach coach = (Coach) person.orElse(null);
@@ -75,7 +75,7 @@ public class CoachController extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Optional<Coach> coach = aRepository.find(id);
         if (!coach.isEmpty() && coach != null) {

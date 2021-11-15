@@ -42,8 +42,13 @@ public class CoachRepository extends AbstractRepository<Coach> implements CoachI
 
     //language=SQL
     private static final String DELETE_COACH_BY_ID = "delete from usr u" + ONE_COACH_FILTER;
-
-
+    private static final String U_ID = "u_id";
+    private static final String U_LOGIN = "u_login";
+    private static final String U_PASSWORD = "u_password";
+    private static final String U_ROLE = "u_role";
+    private static final String C_NAME = "c_name";
+    private static final String C_AGE = "c_age";
+    private static final String C_SALARY = "c_salary";
 
 
     private static volatile CoachRepository instance;
@@ -96,6 +101,11 @@ public class CoachRepository extends AbstractRepository<Coach> implements CoachI
     }
 
     @Override
+    protected String updateOther1Sql() {
+        return null;
+    }
+
+    @Override
     protected String deleteSql() {
         return DELETE_COACH_BY_ID;
     }
@@ -104,7 +114,7 @@ public class CoachRepository extends AbstractRepository<Coach> implements CoachI
     protected void insertLogic(Coach coach, PreparedStatement ps) throws SQLException {
         ps.setString(1, coach.getCredUser().getLogin());
         ps.setString(2, coach.getCredUser().getPassword());
-        ps.setString(3, coach.getCredUser().getRoles());
+        ps.setString(3, coach.getCredUser().getRole());
     }
     @Override
     protected void insertLogicOther(Coach coach, PreparedStatement ps) throws SQLException {
@@ -118,7 +128,7 @@ public class CoachRepository extends AbstractRepository<Coach> implements CoachI
     protected void updateLogic(Coach coach, PreparedStatement ps) throws SQLException {
         ps.setString(1, coach.getCredUser().getLogin());
         ps.setString(2, coach.getCredUser().getPassword());
-        ps.setString(3, coach.getCredUser().getRoles());
+        ps.setString(3, coach.getCredUser().getRole());
     }
 
     @Override
@@ -129,22 +139,27 @@ public class CoachRepository extends AbstractRepository<Coach> implements CoachI
         ps.setInt(4, coach.getId());
     }
 
+    @Override
+    protected void updateLogicOther1(Coach person, PreparedStatement ps) throws SQLException {
+
+    }
+
 
     @Override
     protected List<Coach> resultSetToPerson(ResultSet rs) throws SQLException {
         List<Coach> result = new ArrayList<>();
             while (rs.next()) {
-                int uId=rs.getInt("u_id");
+                int uId=rs.getInt(U_ID);
                 result.add(new Coach()
                         .withId(uId)
                         .withCredUser(
                                 new CredUser()
-                                        .withLogin(rs.getString("u_login"))
-                                        .withPassword(rs.getString("u_password"))
-                                        .withRoles(rs.getString("u_role")))
-                        .withName(rs.getString("c_name"))
-                        .withAge(rs.getInt("c_age"))
-                        .withSalary(rs.getInt("c_salary"))); }
+                                        .withLogin(rs.getString(U_LOGIN))
+                                        .withPassword(rs.getString(U_PASSWORD))
+                                        .withRole(rs.getString(U_ROLE)))
+                        .withName(rs.getString(C_NAME))
+                        .withAge(rs.getInt(C_AGE))
+                        .withSalary(rs.getInt(C_SALARY))); }
 
         return result.isEmpty() ? new ArrayList<>() : result;
     }

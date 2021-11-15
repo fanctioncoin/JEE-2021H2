@@ -3,6 +3,7 @@ package by.academy.web.model;
 
 import lombok.*;
 
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @ToString(callSuper = true)
@@ -10,11 +11,16 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Coach extends Person{
     private int salary;
 
     public Coach(Integer id, CredUser credUser, String name, int age, int salary) {
         super(id, credUser, name, age);
+        this.salary = salary;
+    }
+    public Coach( Integer id, String name, int age, int salary) {
+        super(id, name, age);
         this.salary = salary;
     }
 

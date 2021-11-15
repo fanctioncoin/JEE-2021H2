@@ -1,6 +1,7 @@
 package by.academy.web.repos;
 
 import by.academy.web.model.Person;
+import by.academy.web.model.Student;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public abstract class AbstractRepository< T extends Person> implements ARepository<T> {
+public abstract class AbstractRepository< T extends Person> implements Repository<T> {
     private static final int POSITION_ID = 1;
     private final DataSource dataSource;
 
@@ -33,6 +34,8 @@ public abstract class AbstractRepository< T extends Person> implements AReposito
 
     protected abstract String updateOtherSql();
 
+    protected abstract String updateOther1Sql();
+
     protected abstract String deleteSql();
 
     protected abstract List<T> resultSetToPerson(ResultSet rs) throws SQLException;
@@ -44,6 +47,8 @@ public abstract class AbstractRepository< T extends Person> implements AReposito
     protected abstract void updateLogic(T person, PreparedStatement ps) throws SQLException;
 
     protected abstract void updateLogicOther(T person, PreparedStatement ps) throws SQLException;
+
+    protected abstract void updateLogicOther1(T person, PreparedStatement ps) throws SQLException;
 
 
     @Override
@@ -111,19 +116,26 @@ public abstract class AbstractRepository< T extends Person> implements AReposito
 
             try (Connection con = dataSource.getConnection()) {
                 con.setAutoCommit(false);
-                //Первая транзация вставка в таблицу usr
+                //Первая операция вставка в таблицу usr
                 PreparedStatement ps = con.prepareStatement(updateSql());
                 updateLogic(person, ps);
                 ps.setInt(4, person.getId());
                 ps.executeUpdate();
 
-                //Вторая транзакция вставка в таблицу <T>
+                //Вторая операция вставка в таблицу <T>
                 PreparedStatement ps1 = con.prepareStatement(updateOtherSql());
                 updateLogicOther(person, ps1);
                 ps1.executeUpdate();
                 con.commit();
+                ps1.executeUpdate();
+                //Третья операция вставка в таблицу <Band> где это необходимо
+                  if( person instanceof Student){
+                      PreparedStatement ps2 = con.prepareStatement(updateOther1Sql());
+                      updateLogicOther1(person, ps2);
+                      con.commit();
+                      ps2.executeUpdate();
+                  }
                 con.setAutoCommit(true);
-                ps.executeUpdate();
 
             } catch (SQLException e) {
                 log.error(e.getMessage());

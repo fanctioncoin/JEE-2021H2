@@ -11,12 +11,12 @@ import java.io.IOException;
 public class MainController extends Dispatcher {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("list") != null || req.getParameter("salarylist") != null) {
             this.forward("/user-coach", req, resp);
 
         } else if (req.getParameter("studentslist") != null) {
-            this.forward("/student", req, resp);
+            this.forward("/show-band", req, resp);
 
         } else if (req.getParameter("adminFeatures") != null) {
             this.forward("/admin", req, resp);

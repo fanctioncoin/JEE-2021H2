@@ -1,8 +1,12 @@
 package by.academy.web.repos;
 
+import by.academy.web.model.Admin;
 import by.academy.web.model.Coach;
 import by.academy.web.model.Person;
 import by.academy.web.model.Student;
+import by.academy.web.repos.memory.AdminRepo;
+import by.academy.web.repos.memory.CoachRepo;
+import by.academy.web.repos.memory.StudentRepo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -34,22 +38,43 @@ public class RepositoryFactory {
         //factory empty private
     }
 
-    public static  ARepository getEmployeeRepository(Person person) {
+    public static Repository getEmployeeRepository(Person person) {
         switch (TYPE) {
             case POSTGRES:
+                return getRepositoryPostgres(person);
 
-                if(person instanceof Coach){
-                    return CoachRepository.getInstance(datasource);
-                }
-
-                else if(person instanceof Student){
-                    return StudentRepository.getInstance(datasource);
-                }
-
-                return PersonRepositoryPostgres.getInstance(datasource);
             case MEMORY:
-            default:
-                return PersonRepositoryInMemory.getInstance();
+                return getRepositoryInMemory(person);
         }
+        return null;
+    }
+
+    private static Repository getRepositoryInMemory(Person person) {
+
+        if (person instanceof Admin) {
+            return AdminRepo.getInstance();
+
+        } else if (person instanceof Coach) {
+            return CoachRepo.getInstance();
+
+        } else if (person instanceof Student) {
+            return StudentRepo.getInstance();
+        }
+        return null;
+    }
+
+    private static Repository getRepositoryPostgres(Person person) {
+
+        if(person instanceof Admin){
+            return AdminRepository.getInstance(datasource);
+        }
+
+        if(person instanceof Coach){
+            return CoachRepository.getInstance(datasource);
+        }
+        else if(person instanceof Student){
+            return StudentRepository.getInstance(datasource);
+        }
+        return null;
     }
 }

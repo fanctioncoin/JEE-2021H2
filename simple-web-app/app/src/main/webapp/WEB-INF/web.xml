@@ -106,6 +106,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ShowBand</servlet-name>
+        <jsp-file>/student/show-band.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowBand</servlet-name>
+        <url-pattern>/show-band</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdminFeatures</servlet-name>
         <jsp-file>/admin-features.jsp</jsp-file>
     </servlet>

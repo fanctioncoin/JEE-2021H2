@@ -17,9 +17,9 @@ public class AuthFilter extends AbstraсtFilter{
         HttpServletRequest req=(HttpServletRequest) servletRequest;
         HttpServletResponse resp=(HttpServletResponse) servletResponse;
         HttpSession session =req.getSession();
-        if (session!=null && session.getAttribute("login")!=null){
+           if (session!=null && session.getAttribute("login")!=null) {
             filterChain.doFilter(req,resp);
-        } else{
+        }  else {
             resp.sendRedirect(req.getContextPath()+"/index.jsp");
         }
     }

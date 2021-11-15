@@ -23,13 +23,7 @@ public class AuthCoachFilter extends AbstraсtFilter {
         HttpSession session = req.getSession();
         Person person = (Person) session.getAttribute("login");
         if (person.getCredUser().getRole() != null) {
-            if (person.getCredUser().getRole().equals(Role.ADMIN) || person.getCredUser().getRole().equals(Role.COACH) ) {
-                filterChain.doFilter(req, resp);
-            } else {
-                resp.sendRedirect(req.getContextPath() + "/student");
-            }
-        } else if (person.getCredUser().getRole() == null) {
-            if (person.getCredUser().getRoles().toUpperCase(Locale.ROOT).equals("ADMIN") || person.getCredUser().getRoles().toUpperCase(Locale.ROOT).equals("COACH")) {
+            if (person.getCredUser().getRole().toUpperCase(Locale.ROOT).equals("ADMIN") || person.getCredUser().getRole().toUpperCase(Locale.ROOT).equals("COACH")) {
                 filterChain.doFilter(req, resp);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/student");
