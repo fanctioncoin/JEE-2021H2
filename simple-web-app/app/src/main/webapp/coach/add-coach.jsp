@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Add User</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 <%@include file="/fragment/header.jsp"%>
