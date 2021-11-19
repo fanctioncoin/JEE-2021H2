@@ -32,12 +32,14 @@
         <!--        <mapping resource="Department.hbm.xml"/>-->
         <!--        <mapping resource="City.hbm.xml"/>-->
 
-        <!-- mapping classes -->
-<!--        <mapping class="by.academy.web.model.Coach"/>-->
-<!--&lt;!&ndash;        <mapping class="by.academy.web.model.Student"/>&ndash;&gt;-->
+<!--         mapping classes -->
+        <mapping class="by.academy.web.model.Coach"/>
+        <mapping class="by.academy.web.model.Admin"/>
+        <mapping class="by.academy.web.model.Student"/>
 <!--        <mapping class="by.academy.web.model.Person"/>-->
-<!--        <mapping class="by.academy.web.model.CredUser"/>-->
-
+        <mapping class="by.academy.web.model.CredUser"/>
+        <mapping class="by.academy.web.model.Band"/>
+        <mapping class="by.academy.web.model.Discipline"/>
 
     </session-factory>
 

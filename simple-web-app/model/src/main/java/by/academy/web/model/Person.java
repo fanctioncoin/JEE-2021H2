@@ -1,13 +1,14 @@
 package by.academy.web.model;
 
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
-import java.util.Objects;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -16,7 +17,7 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class Person extends Entity  {
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.DETACH, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH, CascadeType.REMOVE})
     @JoinColumn(name = "id_usr")
     private CredUser credUser;
     private String name;

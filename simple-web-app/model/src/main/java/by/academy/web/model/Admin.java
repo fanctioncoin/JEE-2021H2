@@ -1,20 +1,19 @@
 package by.academy.web.model;
 
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
-
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
 @Entity
+@Table(name = "adm")
 public class Admin extends Person {
 
-    public Admin() {
-    }
-
-    public Admin(Integer id, CredUser credUser, String name, int age) {
-        super(id, credUser, name, age);
-    }
 
     @Override
     public Admin withId(Integer id) {

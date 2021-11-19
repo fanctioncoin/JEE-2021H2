@@ -33,13 +33,16 @@ public class StudentController extends Dispatcher {
         if (name != null) {
             HttpSession session = req.getSession();
             if (name.equals("GLS_01_02")) {
-                req.setAttribute("students", studentFilter);
+                // в сессию потому что нужна информация на других страничках jsp
+                session.setAttribute("students", studentFilter);
                 session.setAttribute("disciplines",studentFilter.get(0).getBand().getDisciplines());
+                session.setAttribute("marks",studentFilter.get(0).getMarks());
                 this.forward("/show-students", req, resp);
 
             } else if (name.equals("GLK_03_02")) {
-                req.setAttribute("students", studentFilter);
+                session.setAttribute("students", studentFilter);
                 session.setAttribute("disciplines",studentFilter.get(0).getBand().getDisciplines());
+                session.setAttribute("marks",studentFilter.get(0).getMarks());
                 this.forward("/show-students", req, resp);
             }
         } else {
@@ -50,20 +53,37 @@ public class StudentController extends Dispatcher {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+       String method= (String) req.getParameter("method");
 
-        Optional<Student> student1 = studentService.find(id);
-        Student student = (Student) student1.orElse(null);
-        if (student != null) {
-            String marks1 = req.getParameter("marks1");
-            String marks2 = req.getParameter("marks2");
-            String marks3 = req.getParameter("marks3");
-            String marks4 = req.getParameter("marks4");
-            List<String> marks = Arrays.asList(marks1, marks2, marks3, marks4);
-            student.setMarks(marks);
-            studentService.save(student);
-            log.info("Пользователь студент/ под id .. {}... успешно изменил свои оценки №1-{} №2-{} №3-{} №4-{} ", id, marks1, marks2, marks3, marks4);
+        if(method!=null && method.equals("delete")){
+            doDelete(req,resp);
+        } else if(method!=null && method.equals("update") ) {
+            doPut(req,resp);
+        } else {
+            String login = req.getParameter("login");
+            String password =req.getParameter("password");
+            String name = req.getParameter("name");
+            int age = Integer.parseInt(req.getParameter("age"));
+            String nameBand =req.getParameter("raz");
+              Student student =studentService.createStudent(login, password, name, age, nameBand);
+              studentService.save(student);
+              log.info("Новый пользователь логин -{}  password -{}  успешно добавлен",login,password);
         }
         doGet(req, resp);
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+         req= studentService.update(id,req);
+        doGet(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        studentService.remove(id);
+        doGet(req, resp);
+    }
 }
+

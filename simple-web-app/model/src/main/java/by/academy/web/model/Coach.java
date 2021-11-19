@@ -3,17 +3,25 @@ package by.academy.web.model;
 
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = "bands")
+@EqualsAndHashCode(callSuper = true, exclude = "bands")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Coach extends Person{
     private int salary;
+
+    // Частный случай когда один Тренер может быть у разных групп.
+    @OneToMany(mappedBy = "coach", cascade = {CascadeType.MERGE})
+    private Set<Band> bands =new LinkedHashSet<>();
 
     public Coach(Integer id, CredUser credUser, String name, int age, int salary) {
         super(id, credUser, name, age);

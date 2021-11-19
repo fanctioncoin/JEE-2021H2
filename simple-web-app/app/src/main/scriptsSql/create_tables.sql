@@ -1,3 +1,6 @@
+drop table if exists marks;
+drop table if exists band_disciplines;
+drop table if exists discipline;
 drop table if exists adm;
 drop table if exists student;
 drop table if exists band;
@@ -66,6 +69,28 @@ CREATE TABLE student
     marks10 varchar(255),
     id_usr int not null,
     primary key (id)
+
+);
+
+CREATE TABLE discipline
+(
+    band_id int4 references band(id),
+    name   varchar(255) not null
+);
+
+CREATE TABLE band_disciplines
+(
+    id serial not null,
+    band_id int4 not null,
+    discipline_id int4 not null,
+    primary key (id)
+);
+
+
+CREATE TABLE marks
+(
+    student_id int4 references student(id),
+    mark   varchar(255)
 );
 
 alter table coach
@@ -114,12 +139,43 @@ values ('GLS_01_02',1,'Logic','Biology','History','Algebra'),
 
 
 INSERT INTO student ("name" , age ,id_band ,marks1, marks2, marks3, marks4, id_usr)
-values ('Ivan Zuzkin',20,1,'5','-','9','10',30),
-       ('Natalia Efimova',19,1,'-','-','9','7',31),
-       ('Vadim Lukyanov',22,2,'5','-','5','7',32),
-       ('Sergey Lukyanov',21,2,'5','-','5','7',33);
+values ('Ivan Zuzkin',20,1,'5','-','9','10',7),
+       ('Natalia Efimova',19,1,'-','-','9','7',8),
+       ('Vadim Lukyanov',22,2,'5','-','5','7',9),
+       ('Sergey Lukyanov',21,2,'5','-','5','7',10);
 
 INSERT INTO adm ("name" , age , id_usr )
 values ('Slava Belov',35,1);
 
+INSERT INTO discipline(band_id,name)
+values (1,'Logic'),
+       (1,'History'),
+       (1,'Mechanic'),
+       (1,'Art'),
+       (2,'History World'),
+       (2,'Chemisty'),
+       (2,'Mathematics'),
+       (2,'English'),
+       (2,'Belorussian language');
 
+
+INSERT INTO marks(student_id,mark)
+values
+(5,'-'),
+(5,'5'),
+(5,'8'),
+(5,'9'),
+(6,'-'),
+(6,'10'),
+(6,'10'),
+(6,'10'),
+(7,'5'),
+(7,'-'),
+(7,'10'),
+(7,'10'),
+(7,'9'),
+(8,'2'),
+(8,'-'),
+(8,'10'),
+(8,'10'),
+(8,'9');

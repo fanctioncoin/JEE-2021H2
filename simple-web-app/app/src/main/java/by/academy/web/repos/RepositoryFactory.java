@@ -1,9 +1,13 @@
 package by.academy.web.repos;
 
+import by.academy.web.exceptions.DatabaseException;
 import by.academy.web.model.Admin;
 import by.academy.web.model.Coach;
 import by.academy.web.model.Person;
 import by.academy.web.model.Student;
+import by.academy.web.repos.jpa.AdminRepositoryJpa;
+import by.academy.web.repos.jpa.CoachRepositoryJpa;
+import by.academy.web.repos.jpa.StudentRepositoryJpa;
 import by.academy.web.repos.memory.AdminRepo;
 import by.academy.web.repos.memory.CoachRepo;
 import by.academy.web.repos.memory.StudentRepo;
@@ -23,6 +27,7 @@ public class RepositoryFactory {
             appProperties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("app.properties"));
         } catch (IOException e) {
             log.error(e.getMessage(), e);
+            throw new DatabaseException(e);
         }
         TYPE = RepositoryTypes.getTypeByStr(appProperties.getProperty("repository.type"));
         if (TYPE == RepositoryTypes.POSTGRES) {
@@ -42,9 +47,24 @@ public class RepositoryFactory {
         switch (TYPE) {
             case POSTGRES:
                 return getRepositoryPostgres(person);
-
             case MEMORY:
                 return getRepositoryInMemory(person);
+            case JPA:
+                return getRepositoryInJpa(person);
+        }
+        return null;
+    }
+
+    private static Repository getRepositoryInJpa(Person person) {
+
+        if(person instanceof Admin){
+            return AdminRepositoryJpa.getInstance();
+
+        } else if(person instanceof Coach){
+            return CoachRepositoryJpa.getInstance();
+
+        } else if(person instanceof Student){
+            return StudentRepositoryJpa.getInstance();
         }
         return null;
     }
@@ -67,12 +87,11 @@ public class RepositoryFactory {
 
         if(person instanceof Admin){
             return AdminRepository.getInstance(datasource);
-        }
 
-        if(person instanceof Coach){
+        } else if(person instanceof Coach){
             return CoachRepository.getInstance(datasource);
-        }
-        else if(person instanceof Student){
+
+        } else if(person instanceof Student){
             return StudentRepository.getInstance(datasource);
         }
         return null;

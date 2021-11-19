@@ -12,19 +12,7 @@ public class CredUser extends Entity {
 
     private String login;
     private String password;
-
-//    @Transient
-//    private Role role1;
-
     private String role;
-
-//    public CredUser(Integer id, String login, String password, Role role1) {
-//        super(id);
-//        this.login = login;
-//        this.password = password;
-//        this.role1 = role1;
-//    }
-
 
 
 //    public CredUser(String login, String password, String role) {

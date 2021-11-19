@@ -1,5 +1,6 @@
 package by.academy.web.service;
 
+import by.academy.web.model.Band;
 import by.academy.web.model.Coach;
 import by.academy.web.model.Person;
 import by.academy.web.model.Student;
@@ -8,9 +9,7 @@ import by.academy.web.repos.RepositoryFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class AdminService {
 
@@ -28,7 +27,13 @@ public class AdminService {
             return studentList.stream()
                     .collect(Collectors.toMap(Person::getId, x->x));
         }
-//        return map= Stream.concat(coachList.stream(), studentList.stream())
-//                .collect(Collectors.toMap(Person::getId, x->x));
+    }
+
+    public List<Band> findBand() {
+        List<Student> studentList = repositoryStudent.findAll();
+        return studentList.stream()
+                .map(Student::getBand)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

@@ -65,6 +65,7 @@
         <url-pattern>/user-coach</url-pattern>
     </servlet-mapping>
 
+
     <filter>
         <filter-name>hiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
@@ -74,6 +75,7 @@
         <filter-name>hiddenHttpMethodFilter</filter-name>
         <servlet-name>CoachController</servlet-name>
     </filter-mapping>
+
 
     <servlet>
         <servlet-name>DeleteCoach</servlet-name>
@@ -113,6 +115,26 @@
     <servlet-mapping>
         <servlet-name>ShowBand</servlet-name>
         <url-pattern>/show-band</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddStudents</servlet-name>
+        <jsp-file>/student/add-student.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddStudents</servlet-name>
+        <url-pattern>/add-student</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteStudents</servlet-name>
+        <jsp-file>/student/delete-student.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteStudents</servlet-name>
+        <url-pattern>/delete-student</url-pattern>
     </servlet-mapping>
 
     <servlet>

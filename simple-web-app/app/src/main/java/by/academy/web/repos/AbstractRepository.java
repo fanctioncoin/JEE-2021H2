@@ -1,5 +1,6 @@
 package by.academy.web.repos;
 
+import by.academy.web.exceptions.DatabaseException;
 import by.academy.web.model.Person;
 import by.academy.web.model.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -58,11 +59,10 @@ public abstract class AbstractRepository< T extends Person> implements Repositor
              PreparedStatement ps = con.prepareStatement(selectAllFields());
              ResultSet rs = ps.executeQuery()) {
             result = resultSetToPerson(rs);
-        }catch (NullPointerException e){
-        log.error(e.getMessage());
 
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             log.error(e.getMessage());
+            throw new DatabaseException(e);
         }
         return result;
     }
@@ -78,6 +78,7 @@ public abstract class AbstractRepository< T extends Person> implements Repositor
             result = resultSetToPerson(rs);
         } catch (SQLException e) {
             log.error(e.getMessage());
+            throw new DatabaseException(e);
         } finally {
             closeQuietly(rs);
         }
@@ -108,6 +109,7 @@ public abstract class AbstractRepository< T extends Person> implements Repositor
 
         } catch (SQLException e) {
             log.error(e.getMessage());
+            throw new DatabaseException(e);
         }
         return person;
     }
@@ -139,6 +141,7 @@ public abstract class AbstractRepository< T extends Person> implements Repositor
 
             } catch (SQLException e) {
                 log.error(e.getMessage());
+                throw new DatabaseException(e);
             }
             return person;
         }
@@ -154,6 +157,7 @@ public abstract class AbstractRepository< T extends Person> implements Repositor
                 }
             } catch (SQLException e) {
                 log.error(e.getMessage());
+                throw new DatabaseException(e);
             }
             return Optional.empty();
         }
@@ -166,6 +170,7 @@ public abstract class AbstractRepository< T extends Person> implements Repositor
                 closeable.close();
             } catch (Exception e) {
                 log.error("Couldn't close {}", closeable);
+                throw new DatabaseException(e);
             }
         }
     }

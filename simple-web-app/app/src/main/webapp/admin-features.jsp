@@ -1,4 +1,7 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="by.academy.web.model.Student" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Победитель
   Date: 09.10.2021
@@ -15,27 +18,22 @@
 <body>
 <%@include file="/fragment/header.jsp" %>
 <h3 align="center"> Admin is the God!</h3>
-<%--<#list roles as role>--%>
-<%--<div>--%>
-<%--    <label>  <input type="checkbox" name="${role}"  ${role} </label>--%>
-<%--</div>--%>
-<%--</#list>--%>
 <table border=1px solid #A4A4A4>
     <tr>
         <td>
         <table border="2">
             <tr>
-                <td>Coaches </td>
+                <td><b>Coaches</b> </td>
             </tr>
             <tr>
-                <td>ID</td>
-                <td>Login </td>
-                <td>Password</td>
-                <td>Role </td>
-                <td>Name</td>
-                <td>Age</td>
-                <td>Salary</td>
-                <td>Action</td>
+                <td><b> ID</b></td>
+                <td><b>Login</b> </td>
+                <td><b>Password</b></td>
+                <td><b>Role </b></td>
+                <td><b>Name</b></td>
+                <td><b>Age</b></td>
+                <td><b>Salary</b></td>
+                <td><b>Action</b></td>
             </tr>
        <c:forEach items="${coachMap}" var = "coach">
             <tr>
@@ -61,29 +59,47 @@
             </tr>
        </c:forEach>
         </table>
+            <form action = "${pageContext.request.contextPath}/add-coach">
+                <input type="submit" value="Добавить нового тренера">
+            </form>
         </td>
     <td>
         <table border="2">
             <tr>
-                <td>Students </td>
+                <td><b>Students</b> </td>
             </tr>
+
             <tr>
-                <td>ID</td>
-                <td>login </td>
-                <td>password</td>
-                <td>role </td>
-                <td>Name</td>
-                <td>Age</td>
-                <td>Band</td>
-                <td>Coach</td>
-                <td>Topic-1</td>
-                <td>Topic-2</td>
-                <td>Topic-3</td>
-                <td>Topic-4</td>
-                <td>Action</td>
+                <td><b>ID</b></td>
+                <td><b>login </b></td>
+                <td><b>password</b></td>
+                <td><b>Role </b></td>
+                <td><b>Name</b></td>
+                <td><b>Age</b></td>
+                <td><b>Band</b></td>
+                <td><b>Coach</b></td>
             </tr>
-            <c:forEach items="${studentMap}" var = "student">
-                <tr>
+<%--                Так как у разных студентов может быть разное количество предметов изучаемых будем выводить для каждого шапку
+                    потому как ваш подопечный не хочет разбивать на разные таблицы с одинаковым набором предметов в шапке, а хочу
+                    вывести всех в одной.
+ --%>       <tr>
+                <c:forEach items="${studentMap}" var = "student">
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+                <td>&emsp;</td>
+
+                <c:forEach items="${student.value.band.disciplines}" var = "dis">
+                           <td><b><c:out value="${dis}"/></b></td>
+                </c:forEach>
+
+                <td><b>Action</b></td>
+             </tr>
+              <tr>
                     <td>${student.key}</td>
                     <td>${student.value.getCredUser().getLogin()} </td>
                     <td>${student.value.getCredUser().getPassword()} </td>
@@ -92,10 +108,11 @@
                     <td>${student.value.getAge()}</td>
                     <td>${student.value.band.name}</td>
                     <td>${student.value.band.coach.name}</td>
-                    <td>${student.value.getMarks().get(0)}</td>
-                    <td>${student.value.getMarks().get(1)}</td>
-                    <td>${student.value.getMarks().get(2)}</td>
-                    <td>${student.value.getMarks().get(3)}</td>
+
+                <c:forEach items="${student.value.getMarks()}" var = "marks">
+                    <td><c:out value="${marks}"/></td>
+                </c:forEach>
+
                     <td>
                         <form action="update-student" method="post">
                             <input type="hidden" name="id" value="${student.key}">
@@ -112,7 +129,7 @@
                             <input type="hidden" name="marks4" value="${student.value.getMarks().get(3)}">
                             <input type="submit" value="Изменить" style="float:left">
                         </form>
-                        <form action="${pageContext.request.contextPath}/delete-coach" method="post">
+                        <form action="${pageContext.request.contextPath}/delete-student" method="post">
                             <input type="hidden" name="id" value="${student.key}">
                             <input type="submit" value="Удалить" style="float:left">
                         </form>
@@ -120,9 +137,11 @@
                 </tr>
             </c:forEach>
         </table>
+        <form action = "${pageContext.request.contextPath}/add-student">
+            <input type="submit" value="Добавить нового студента">
+        </form>
     </td>
     </tr>
 </table>
-
 </body>
 </html>

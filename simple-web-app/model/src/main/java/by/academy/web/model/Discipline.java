@@ -6,11 +6,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Embeddable;
+
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@javax.persistence.Entity
 public class Discipline extends Entity {
 
     private String name;

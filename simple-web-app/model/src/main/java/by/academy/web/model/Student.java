@@ -2,7 +2,8 @@ package by.academy.web.model;
 
 import lombok.*;
 
-import javax.persistence.Transient;
+import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,17 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity
 public class Student extends Person {
-    private String groupName;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_band")
     public Band band;
 
 
-    @Transient
+    @ElementCollection
+    @CollectionTable(name = "marks", joinColumns = @JoinColumn(name = "student_id"))
+    @Column(name = "mark")
     private List<String> marks;
 
     {
@@ -27,9 +32,12 @@ public class Student extends Person {
 
     public Student(Integer id, CredUser credUser, String name, int age, Band band, List<String> marks) {
         super(id, credUser, name, age);
-        this.groupName = groupName;
         this.marks = marks;
     }
+
+    public  Student(CredUser credUser, String name, int age, Band band, List<String> marks) {
+    }
+
 
     @Override
     public Student withId(Integer id) {
@@ -55,10 +63,6 @@ public class Student extends Person {
         return this;
     }
 
-    public Student withGroupName(String groupName){
-        setGroupName(groupName);
-        return this;
-    }
     public Student withBand(Band band){
         setBand(band);
         return this;

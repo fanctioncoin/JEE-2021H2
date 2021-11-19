@@ -2,13 +2,12 @@ package by.academy.web;
 
 
 
-import by.academy.web.model.Coach;
-import by.academy.web.model.CredUser;
-import by.academy.web.model.Person;
+import by.academy.web.model.*;
 import by.academy.web.repos.EntityManagerHelper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 public class Start {
     public static void main(String[] args) {
@@ -19,13 +18,24 @@ public class Start {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+//
+//
+//        TypedQuery<Student> query = em.createQuery("from Student ", Student.class);
+//        query.getResultList().forEach(Start::printWithPrefix);
+        StringBuilder stringBuilder =new StringBuilder();
+        String marks ="marks";
+        for(int i=0; i<5; i++){
+            String result =marks+stringBuilder.append(i).toString();
+            System.out.println(result);
+            stringBuilder.delete(0,stringBuilder.length());
+        }
 
-        Coach coach = em.find(Coach.class, 20);
-//        CredUser credUser =em.find(CredUser.class,1);
-//        printWithPrefix(credUser);
-        printWithPrefix(coach);
-
-        em.remove(coach);
+//        Coach coach = em.find(Coach.class, 20);
+////        CredUser credUser =em.find(CredUser.class,1);
+////        printWithPrefix(credUser);
+//        printWithPrefix(coach);
+//
+//        em.remove(coach);
 
 //       Coach coach1 = new Coach()
 //                .withCredUser(

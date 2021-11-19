@@ -1,7 +1,5 @@
 <%@ page import="java.util.Set" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="by.academy.web.model.Student" %><%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Победитель
   Date: 11.10.2021
@@ -19,7 +17,7 @@
 <%@include file="/fragment/header.jsp" %>
 
 <h3 align="center">
-    Редактировать оценки ${param.name}
+    Редактировать студента ${param.name}
 </h3>
 <table border="2">
     <tr>
@@ -32,25 +30,15 @@
         <form action="student" method="post">
             <input type="hidden" name="method" value="update">
             <input type="hidden" name="id" value="${param.id}">
-<%--            Необходимо чутка,понимаю что это плохо, java вставки для нормального отображения и подсказок,
-                полей для редактирования оценок, так как разное кол-во оценок
---%>
-        <%  StringBuilder stringBuilder = new StringBuilder();%>
-        <%  for (int i = 1; i <= disciplines.size(); i++) {%>
-        <%      String result = "marks" + stringBuilder.append(i).toString();%>
-            <td><input required  type="text" name=<%=result%>  </td>
-            <%   stringBuilder.delete(0, stringBuilder.length());%>
-            <%  } %>
+            <input type="hidden" name="name" value="${param.name}">
+            <input type="hidden" name="age" value="${param.age}">
+            <input type="hidden" name="name_band" value="${param.group}">
+            <td><input type="text" name="marks1" value="${param.marks1}" placeholder=${param.marks1}></td>
+            <td><input type="text" name="marks2" value="${param.marks2}" placeholder=${param.marks2}></td>
+            <td><input type="text" name="marks3" value="${param.marks3}" placeholder=${param.marks3}></td>
+            <td><input type="text" name="marks4" value="${param.marks4}" placeholder=${param.marks4}></td>
             <td><input type="submit" value="Сохранить"></td>
         </form>
-
-
-
-
-
-
-
-
     </tr>
 </table>
 </body>
