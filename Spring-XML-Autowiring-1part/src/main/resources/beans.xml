@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation=
+   "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-init-method="initTest" default-destroy-method="destroyTest" >
+
+
+    <util:list id="listOfSensation">
+        <value>"Sandals with socks"</value>
+        <value>"New Coats"</value>
+    </util:list>
+
+    <util:map id="authors">
+        <entry key="John Bar" value="25"/>
+        <entry key="Jessy Lingard" value="3"/>
+        <entry key="Nikolay Fedorov" value="12"/>
+    </util:map>
+
+
+<!--    books-->
+    <bean id ="humorBook" class="com.staravoyt.spring.core.model.Book">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="Comedy Club" />
+        <constructor-arg name="description" value="humor of book"/>
+        <constructor-arg name="price" value="100"/>
+        <constructor-arg name="binding" value="hard"/>
+    </bean>
+
+<!--    Injection by constructor with schema-c-->
+    <!--    Init/destroy  methods-->
+    <bean id ="romansBook" class="com.staravoyt.spring.core.model.Book"  init-method="startMethod" destroy-method="finishMethod"
+          c:id="2"
+          c:name="Romeo and Julia"
+          c:description="romans of book"
+          c:price="150"
+          c:binding="soft">
+    </bean>
+
+    <bean id ="detectiveBook" class="com.staravoyt.spring.core.model.Book">
+        <constructor-arg name="id" value="3"/>
+        <constructor-arg name="name" value="James Bond" />
+        <constructor-arg name="description" value="detective of book"/>
+        <constructor-arg name="price" value="210"/>
+        <constructor-arg name="binding" value="hard"/>
+    </bean>
+
+<!--    Injection by constructor with schema-p-->
+ <!--    Collection injection (list)-->
+<!--    Magazines-->
+    <bean id="gqMagazine" class="com.staravoyt.spring.core.model.Magazine"
+          p:id="4"
+          p:name="GQ"
+          p:description="Fashion of industry"
+          p:price="20"
+          p:listOfSensation-ref="listOfSensation">
+    </bean>
+
+
+    <bean id ="elisMagazine" class="com.staravoyt.spring.core.model.Magazine">
+        <property name="id" value="5"/>
+        <property  name="name" value="Elis" />
+        <property  name="description" value="Magazine for women"/>
+        <property  name="price" value="25"/>
+        <property name="listOfSensation">
+            <list>
+                <value>"New hats"</value>
+                <value>"New Shirts"</value>
+            </list>
+        </property>
+    </bean>
+
+<!--    newspapers-->
+
+    <bean id ="newYorkTimes" class="com.staravoyt.spring.core.model.Newspaper">
+        <property name="id" value="6"/>
+        <property  name="name" value="The New York Times" />
+        <property  name="description" value="This is most populate newspaper in World"/>
+        <property  name="price" value="4"/>
+        <property name="authorMap">
+            <map>
+                <entry key="John Bar" value="25"/>
+                <entry key="Jessy Lingard" value="3"/>
+                <entry key="Nikolay Fedorov" value="12"/>
+            </map>
+        </property>
+    </bean>
+
+<!--    Collection injection (map)-->
+    <bean id ="dailyNews" class="com.staravoyt.spring.core.model.Newspaper">
+        <property name="id" value="7"/>
+        <property  name="name" value="The Daily News" />
+        <property  name="description" value="This is daily news"/>
+        <property  name="price" value="2"/>
+        <property name="authorMap" ref="authors"/>
+    </bean>
+
+    <bean id="shopIrish" class="com.staravoyt.spring.core.model.Shop"
+          p:id="1"
+          p:name="Irish bookstore"
+          p:books-ref="listBooks"
+          p:magazines-ref="listMagazine"
+          p:newspapers-ref="listNewspaper"
+    >
+    </bean>
+
+    <util:list id="listBooks">
+            <ref bean="humorBook"/>
+            <ref bean="romansBook"/>
+    </util:list>
+
+    <util:list id="listMagazine">
+        <ref bean="gqMagazine"/>
+        <ref bean="elisMagazine"/>
+    </util:list>
+
+    <util:list id="listNewspaper">
+        <ref bean="dailyNews"/>
+        <ref bean="newYorkTimes"/>
+    </util:list>
+
+
+</beans>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=
+   "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location=" books.properties, magazines.properties, newspapers.properties "/>
+
+
+<!--    books-->
+    <bean id ="humorBook" class="com.staravoyt.spring.core.model.Book">
+        <constructor-arg name="id" value="${humorBook.id}"/>
+        <constructor-arg name="name" value="${humorBook.name}" />
+        <constructor-arg name="description" value="${humorBook.description}"/>
+        <constructor-arg name="price" value="${humorBook.price}"/>
+        <constructor-arg name="binding" value="${humorBook.binding}"/>
+    </bean>
+
+<!--    Injection by constructor with schema-c-->
+    <!--    Init/destroy  methods-->
+    <bean id ="romansBook" class="com.staravoyt.spring.core.model.Book"  init-method="startMethod" destroy-method="finishMethod"
+          c:id="${romansBook.id}"
+          c:name="${romansBook.name}"
+          c:description="${romansBook.description}"
+          c:price="${romansBook.price}"
+          c:binding="${romansBook.binding}">
+    </bean>
+
+    <bean id ="detectiveBook" class="com.staravoyt.spring.core.model.Book">
+        <constructor-arg name="id" value="${detectiveBook.id}"/>
+        <constructor-arg name="name" value="${detectiveBook.name}" />
+        <constructor-arg name="description" value="${detectiveBook.description}"/>
+        <constructor-arg name="price" value="${detectiveBook.price}"/>
+        <constructor-arg name="binding" value="${detectiveBook.binding}"/>
+    </bean>
+
+<!--    Injection by constructor with schema-p-->
+<!--    Magazines-->
+    <bean id="gqMagazine" class="com.staravoyt.spring.core.model.Magazine"
+          p:id="${gqMagazine.id}"
+          p:name="${gqMagazine.name}"
+          p:description="${gqMagazine.description}"
+          p:price="${gqMagazine.price}"
+          p:listOfSensation="${gqMagazine.listOfSensation}">
+    </bean>
+
+
+    <bean id ="elisMagazine" class="com.staravoyt.spring.core.model.Magazine">
+        <property name="id" value="${elisMagazine.id}"/>
+        <property  name="name" value="${elisMagazine.name}" />
+        <property  name="description" value="${elisMagazine.description}"/>
+        <property  name="price" value="${elisMagazine.price}"/>
+        <property name= "listOfSensation" value= "${elisMagazine.listOfSensation}"/>
+    </bean>
+
+<!--    newspapers-->
+
+
+    <bean id ="newYorkTimes" class="com.staravoyt.spring.core.model.Newspaper">
+        <property name="id" value="${newYorkTimes.id}"/>
+        <property  name="name" value="${newYorkTimes.name}" />
+        <property  name="description" value="${newYorkTimes.description}"/>
+        <property  name="price" value="${newYorkTimes.price}"/>
+        <property name="authorMap" value="#{${newYorkTimes.authorMap}}"/>
+    </bean>
+
+    <bean id ="dailyNews" class="com.staravoyt.spring.core.model.Newspaper">
+        <property name="id" value="${dailyNews.id}"/>
+        <property  name="name" value="${dailyNews.name}" />
+        <property  name="description" value="${dailyNews.description}"/>
+        <property  name="price" value="${dailyNews.price}"/>
+        <property name="authorMap" value="#{${dailyNews.authorMap}}"/>
+    </bean>
+
+
+    <bean id="shopIrish" class="com.staravoyt.spring.core.model.Shop"
+          p:id="1"
+          p:name="Irish bookstore"
+          p:books-ref="listBooks"
+          p:magazines-ref="listMagazine"
+          p:newspapers-ref="listNewspaper"
+    >
+    </bean>
+
+    <util:list id="listBooks">
+            <ref bean="humorBook"/>
+            <ref bean="romansBook"/>
+    </util:list>
+
+    <util:list id="listMagazine">
+        <ref bean="gqMagazine"/>
+        <ref bean="elisMagazine"/>
+    </util:list>
+
+    <util:list id="listNewspaper">
+        <ref bean="dailyNews"/>
+        <ref bean="newYorkTimes"/>
+    </util:list>
+
+
+</beans>

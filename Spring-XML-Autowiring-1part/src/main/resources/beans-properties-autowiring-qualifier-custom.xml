@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byType"
+>
+    <context:annotation-config/>
+    <context:property-placeholder location=" books.properties, magazines.properties, newspapers.properties "/>
+
+
+    <!--    books-->
+    <bean id="humorBook" class="com.staravoyt.spring.core.model.Book">
+        <qualifier value="humorBook-qualifier"/>
+        <constructor-arg name="id" value="${humorBook.id}"/>
+        <constructor-arg name="name" value="${humorBook.name}"/>
+        <constructor-arg name="description" value="${humorBook.description}"/>
+        <constructor-arg name="price" value="${humorBook.price}"/>
+        <constructor-arg name="binding" value="${humorBook.binding}"/>
+    </bean>
+
+    <!--    Injection by constructor with schema-c-->
+    <!--    Init/destroy  methods-->
+    <bean id="romansBook" class="com.staravoyt.spring.core.model.Book"
+          c:id="${romansBook.id}"
+          c:name="${romansBook.name}"
+          c:description="${romansBook.description}"
+          c:price="${romansBook.price}"
+          c:binding="${romansBook.binding}">
+        <qualifier value="romansBook-qualifier"/>
+    </bean>
+
+    <!--    primary="true"-->
+    <bean id="detectiveBook" class="com.staravoyt.spring.core.model.Book" >
+        <qualifier value="detectiveBook-qualifier"/>
+        <constructor-arg name="id" value="${detectiveBook.id}"/>
+        <constructor-arg name="name" value="${detectiveBook.name}"/>
+        <constructor-arg name="description" value="${detectiveBook.description}"/>
+        <constructor-arg name="price" value="${detectiveBook.price}"/>
+        <constructor-arg name="binding" value="${detectiveBook.binding}"/>
+    </bean>
+
+    <!--    Injection by constructor with schema-p-->
+    <!--    Magazines-->
+    <bean id="gqMagazine" class="com.staravoyt.spring.core.model.Magazine"
+          p:id="${gqMagazine.id}"
+          p:name="${gqMagazine.name}"
+          p:description="${gqMagazine.description}"
+          p:price="${gqMagazine.price}"
+          p:listOfSensation="${gqMagazine.listOfSensation}">
+    </bean>
+
+
+    <bean id="elisMagazine" class="com.staravoyt.spring.core.model.Magazine">
+        <property name="id" value="${elisMagazine.id}"/>
+        <property name="name" value="${elisMagazine.name}"/>
+        <property name="description" value="${elisMagazine.description}"/>
+        <property name="price" value="${elisMagazine.price}"/>
+        <property name="listOfSensation" value="${elisMagazine.listOfSensation}"/>
+    </bean>
+
+    <!--    newspapers-->
+
+
+    <bean id="newYorkTimes" class="com.staravoyt.spring.core.model.Newspaper">
+        <qualifier type="com.staravoyt.spring.core.qualifiers.NewYorkTimesQualifier"/>
+        <property name="id" value="${newYorkTimes.id}"/>
+        <property name="name" value="${newYorkTimes.name}"/>
+        <property name="description" value="${newYorkTimes.description}"/>
+        <property name="price" value="${newYorkTimes.price}"/>
+        <property name="authorMap" value="#{${newYorkTimes.authorMap}}"/>
+    </bean>
+
+    <bean id="dailyNews" class="com.staravoyt.spring.core.model.Newspaper">
+       <qualifier type="com.staravoyt.spring.core.qualifiers.DailyNewsQualifier"/>
+        <property name="id" value="${dailyNews.id}"/>
+        <property name="name" value="${dailyNews.name}"/>
+        <property name="description" value="${dailyNews.description}"/>
+        <property name="price" value="${dailyNews.price}"/>
+        <property name="authorMap" value="#{${dailyNews.authorMap}}"/>
+    </bean>
+
+    <bean id="minimarket" class="com.staravoyt.spring.core.model.Minimarket" autowire="byName"
+          p:id="2"
+          p:name="Other supermarket test"
+    >
+    </bean>
+
+</beans>
